@@ -66,6 +66,7 @@ Quaternion & Quaternion::operator=(const Quaternion & q)
 {
 	vp = q.vp;
 	w = q.w;
+	return (*this);
 }
 
 Quaternion & Quaternion::operator*=(const Quaternion & q)

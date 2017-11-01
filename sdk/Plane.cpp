@@ -45,6 +45,7 @@ Plane & Plane::operator=(const Plane & p)
 {
 	xv = p.xv;
 	yv = p.yv;
+	return (*this);
 }
 
 CVector3 Plane::GetPoint(const CVector2 & p)
