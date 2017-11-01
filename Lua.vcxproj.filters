@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc_lua">
+      <UniqueIdentifier>{d5e5e944-3f03-459e-acf7-0c96be7ed366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK">
+      <UniqueIdentifier>{33266951-56f8-49de-aff1-d67830f6ed95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LuaBridge">
+      <UniqueIdentifier>{5f06a72c-02fb-4736-8fcc-33a56854676c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LuaBridge\detail">
+      <UniqueIdentifier>{05388f69-1186-4883-8082-7084510b0b22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mysql">
+      <UniqueIdentifier>{28156d45-0e11-4559-8ef9-829c096e3959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mysql\mysql">
+      <UniqueIdentifier>{df73b26f-6f40-46e5-9fa7-d3f3f2174e9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mysql\mysql\psi">
+      <UniqueIdentifier>{b398559e-2d68-4e63-b810-dfb46bb27dac}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="api.cpp" />
+    <ClCompile Include="sdk\CVector2.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\CVector3.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\Plane.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\Quaternion.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="Mysql.cpp" />
+    <ClCompile Include="inc_lua\lapi.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lauxlib.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lbaselib.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lcode.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\ldblib.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\ldebug.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\ldo.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\ldump.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lfunc.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lgc.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\linit.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\liolib.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\llex.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lmathlib.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lmem.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\loadlib.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lobject.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lopcodes.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\loslib.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lparser.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lstate.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lstring.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lstrlib.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\ltable.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\ltablib.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\ltm.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lua.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lundump.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lvm.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="inc_lua\lzio.c">
+      <Filter>inc_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaPlayer.cpp" />
+    <ClCompile Include="LuaVehicle.cpp" />
+    <ClCompile Include="LuaNpc.cpp" />
+    <ClCompile Include="LuaObject.cpp" />
+    <ClCompile Include="LuaCheckpoint.cpp" />
+    <ClCompile Include="LuaBlip.cpp" />
+    <ClCompile Include="LuaPickup.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sdk\APIEntity.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\APIServer.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\APIVehicle.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\APIVisual.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\APIWorld.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\CMaths.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\CVector3.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\CVector4.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="api.h" />
+    <ClInclude Include="LuaEntity.h" />
+    <ClInclude Include="LuaServer.h" />
+    <ClInclude Include="LuaVehicle.h" />
+    <ClInclude Include="LuaBridge\LuaBridge.h">
+      <Filter>LuaBridge</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\RefCountedObject.h">
+      <Filter>LuaBridge</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\RefCountedPtr.h">
+      <Filter>LuaBridge</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\CFunctions.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\ClassInfo.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\Constructor.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\dump.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\FuncTraits.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\Iterator.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\LuaException.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\LuaHelpers.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\LuaRef.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\Namespace.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\Stack.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\TypeList.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\TypeTraits.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBridge\detail\Userdata.h">
+      <Filter>LuaBridge\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\APINpc.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\APIObject.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\APIPlayer.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\util.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\APICheckpoint.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Structs.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaCheckpoint.h" />
+    <ClInclude Include="LuaObject.h" />
+    <ClInclude Include="LuaNpc.h" />
+    <ClInclude Include="LuaPlayer.h" />
+    <ClInclude Include="LuaVisual.h" />
+    <ClInclude Include="LuaWorld.h" />
+    <ClInclude Include="sdk\APICef.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\CVector2.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Plane.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Quaternion.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaMysql.h" />
+    <ClInclude Include="Mysql.h" />
+    <ClInclude Include="Mysql\big_endian.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\byte_order_generic.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\byte_order_generic_x86.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\decimal.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\errmsg.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\keycache.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\little_endian.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\m_ctype.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\m_string.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_alloc.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_byteorder.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_compiler.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_config.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_dbug.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_dir.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_getopt.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_global.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_list.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_pthread.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_sys.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\my_xml.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql_com.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql_com_server.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql_embed.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql_time.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql_version.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysqld_ername.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysqld_error.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\sql_common.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\sql_state.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\sslopt-case.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\sslopt-longopts.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\sslopt-vars.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\typelib.h">
+      <Filter>Mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\client_authentication.h">
+      <Filter>Mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\client_plugin.h">
+      <Filter>Mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\get_password.h">
+      <Filter>Mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\plugin_auth_common.h">
+      <Filter>Mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\plugin_trace.h">
+      <Filter>Mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\service_my_snprintf.h">
+      <Filter>Mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\service_mysql_alloc.h">
+      <Filter>Mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_file.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_idle.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_mdl.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_memory.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_ps.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_socket.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_sp.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_stage.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_statement.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_table.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_thread.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\mysql_transaction.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\psi.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\psi_base.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="Mysql\mysql\psi\psi_memory.h">
+      <Filter>Mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lapi.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lauxlib.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lcode.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\ldebug.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\ldo.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lfunc.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lgc.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\llex.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\llimits.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lmem.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lobject.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lopcodes.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lparser.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lstate.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lstring.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\ltable.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\ltm.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lua.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\luaconf.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lualib.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lundump.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lvm.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="inc_lua\lzio.h">
+      <Filter>inc_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaTimer.h" />
+    <ClInclude Include="sdk\APIBlip.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBlip.h" />
+    <ClInclude Include="LuaEvents.h" />
+    <ClInclude Include="Timers.h" />
+    <ClInclude Include="LuaVector3.h" />
+    <ClInclude Include="Events.h" />
+    <ClInclude Include="sdk\APILog.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\APIPickup.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaPickup.h" />
+    <ClInclude Include="sdk\APICamera.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Mysql\mysql\client_plugin.h.pp">
+      <Filter>Mysql\mysql</Filter>
+    </None>
+  </ItemGroup>
+</Project>

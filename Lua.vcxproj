@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="api.cpp" />
+    <ClCompile Include="inc_lua\lapi.c" />
+    <ClCompile Include="inc_lua\lauxlib.c" />
+    <ClCompile Include="inc_lua\lbaselib.c" />
+    <ClCompile Include="inc_lua\lcode.c" />
+    <ClCompile Include="inc_lua\ldblib.c" />
+    <ClCompile Include="inc_lua\ldebug.c" />
+    <ClCompile Include="inc_lua\ldo.c" />
+    <ClCompile Include="inc_lua\ldump.c" />
+    <ClCompile Include="inc_lua\lfunc.c" />
+    <ClCompile Include="inc_lua\lgc.c" />
+    <ClCompile Include="inc_lua\linit.c" />
+    <ClCompile Include="inc_lua\liolib.c" />
+    <ClCompile Include="inc_lua\llex.c" />
+    <ClCompile Include="inc_lua\lmathlib.c" />
+    <ClCompile Include="inc_lua\lmem.c" />
+    <ClCompile Include="inc_lua\loadlib.c" />
+    <ClCompile Include="inc_lua\lobject.c" />
+    <ClCompile Include="inc_lua\lopcodes.c" />
+    <ClCompile Include="inc_lua\loslib.c" />
+    <ClCompile Include="inc_lua\lparser.c" />
+    <ClCompile Include="inc_lua\lstate.c" />
+    <ClCompile Include="inc_lua\lstring.c" />
+    <ClCompile Include="inc_lua\lstrlib.c" />
+    <ClCompile Include="inc_lua\ltable.c" />
+    <ClCompile Include="inc_lua\ltablib.c" />
+    <ClCompile Include="inc_lua\ltm.c" />
+    <ClCompile Include="inc_lua\lua.c" />
+    <ClCompile Include="inc_lua\lundump.c" />
+    <ClCompile Include="inc_lua\lvm.c" />
+    <ClCompile Include="inc_lua\lzio.c" />
+    <ClCompile Include="LuaBlip.cpp" />
+    <ClCompile Include="LuaCheckpoint.cpp" />
+    <ClCompile Include="LuaNpc.cpp" />
+    <ClCompile Include="LuaObject.cpp" />
+    <ClCompile Include="LuaPickup.cpp" />
+    <ClCompile Include="LuaPlayer.cpp" />
+    <ClCompile Include="LuaVehicle.cpp" />
+    <ClCompile Include="Mysql.cpp" />
+    <ClCompile Include="sdk\CVector2.cpp" />
+    <ClCompile Include="sdk\CVector3.cpp" />
+    <ClCompile Include="sdk\Plane.cpp" />
+    <ClCompile Include="sdk\Quaternion.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="api.h" />
+    <ClInclude Include="Events.h" />
+    <ClInclude Include="inc_lua\lapi.h" />
+    <ClInclude Include="inc_lua\lauxlib.h" />
+    <ClInclude Include="inc_lua\lcode.h" />
+    <ClInclude Include="inc_lua\ldebug.h" />
+    <ClInclude Include="inc_lua\ldo.h" />
+    <ClInclude Include="inc_lua\lfunc.h" />
+    <ClInclude Include="inc_lua\lgc.h" />
+    <ClInclude Include="inc_lua\llex.h" />
+    <ClInclude Include="inc_lua\llimits.h" />
+    <ClInclude Include="inc_lua\lmem.h" />
+    <ClInclude Include="inc_lua\lobject.h" />
+    <ClInclude Include="inc_lua\lopcodes.h" />
+    <ClInclude Include="inc_lua\lparser.h" />
+    <ClInclude Include="inc_lua\lstate.h" />
+    <ClInclude Include="inc_lua\lstring.h" />
+    <ClInclude Include="inc_lua\ltable.h" />
+    <ClInclude Include="inc_lua\ltm.h" />
+    <ClInclude Include="inc_lua\lua.h" />
+    <ClInclude Include="inc_lua\luaconf.h" />
+    <ClInclude Include="inc_lua\lualib.h" />
+    <ClInclude Include="inc_lua\lundump.h" />
+    <ClInclude Include="inc_lua\lvm.h" />
+    <ClInclude Include="inc_lua\lzio.h" />
+    <ClInclude Include="LuaBlip.h" />
+    <ClInclude Include="LuaBridge\detail\CFunctions.h" />
+    <ClInclude Include="LuaBridge\detail\ClassInfo.h" />
+    <ClInclude Include="LuaBridge\detail\Constructor.h" />
+    <ClInclude Include="LuaBridge\detail\dump.h" />
+    <ClInclude Include="LuaBridge\detail\FuncTraits.h" />
+    <ClInclude Include="LuaBridge\detail\Iterator.h" />
+    <ClInclude Include="LuaBridge\detail\LuaException.h" />
+    <ClInclude Include="LuaBridge\detail\LuaHelpers.h" />
+    <ClInclude Include="LuaBridge\detail\LuaRef.h" />
+    <ClInclude Include="LuaBridge\detail\Namespace.h" />
+    <ClInclude Include="LuaBridge\detail\Stack.h" />
+    <ClInclude Include="LuaBridge\detail\TypeList.h" />
+    <ClInclude Include="LuaBridge\detail\TypeTraits.h" />
+    <ClInclude Include="LuaBridge\detail\Userdata.h" />
+    <ClInclude Include="LuaBridge\LuaBridge.h" />
+    <ClInclude Include="LuaBridge\RefCountedObject.h" />
+    <ClInclude Include="LuaBridge\RefCountedPtr.h" />
+    <ClInclude Include="LuaCheckpoint.h" />
+    <ClInclude Include="LuaEntity.h" />
+    <ClInclude Include="LuaEvents.h" />
+    <ClInclude Include="LuaMysql.h" />
+    <ClInclude Include="LuaNpc.h" />
+    <ClInclude Include="LuaObject.h" />
+    <ClInclude Include="LuaPickup.h" />
+    <ClInclude Include="LuaPlayer.h" />
+    <ClInclude Include="LuaServer.h" />
+    <ClInclude Include="LuaTimer.h" />
+    <ClInclude Include="LuaVector3.h" />
+    <ClInclude Include="LuaVehicle.h" />
+    <ClInclude Include="LuaVisual.h" />
+    <ClInclude Include="LuaWorld.h" />
+    <ClInclude Include="Mysql.h" />
+    <ClInclude Include="Mysql\big_endian.h" />
+    <ClInclude Include="Mysql\byte_order_generic.h" />
+    <ClInclude Include="Mysql\byte_order_generic_x86.h" />
+    <ClInclude Include="Mysql\decimal.h" />
+    <ClInclude Include="Mysql\errmsg.h" />
+    <ClInclude Include="Mysql\keycache.h" />
+    <ClInclude Include="Mysql\little_endian.h" />
+    <ClInclude Include="Mysql\mysql.h" />
+    <ClInclude Include="Mysql\mysqld_ername.h" />
+    <ClInclude Include="Mysql\mysqld_error.h" />
+    <ClInclude Include="Mysql\mysql\client_authentication.h" />
+    <ClInclude Include="Mysql\mysql\client_plugin.h" />
+    <ClInclude Include="Mysql\mysql\get_password.h" />
+    <ClInclude Include="Mysql\mysql\plugin_auth_common.h" />
+    <ClInclude Include="Mysql\mysql\plugin_trace.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_file.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_idle.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_mdl.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_memory.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_ps.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_socket.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_sp.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_stage.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_statement.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_table.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_thread.h" />
+    <ClInclude Include="Mysql\mysql\psi\mysql_transaction.h" />
+    <ClInclude Include="Mysql\mysql\psi\psi.h" />
+    <ClInclude Include="Mysql\mysql\psi\psi_base.h" />
+    <ClInclude Include="Mysql\mysql\psi\psi_memory.h" />
+    <ClInclude Include="Mysql\mysql\service_mysql_alloc.h" />
+    <ClInclude Include="Mysql\mysql\service_my_snprintf.h" />
+    <ClInclude Include="Mysql\mysql_com.h" />
+    <ClInclude Include="Mysql\mysql_com_server.h" />
+    <ClInclude Include="Mysql\mysql_embed.h" />
+    <ClInclude Include="Mysql\mysql_time.h" />
+    <ClInclude Include="Mysql\mysql_version.h" />
+    <ClInclude Include="Mysql\my_alloc.h" />
+    <ClInclude Include="Mysql\my_byteorder.h" />
+    <ClInclude Include="Mysql\my_compiler.h" />
+    <ClInclude Include="Mysql\my_config.h" />
+    <ClInclude Include="Mysql\my_dbug.h" />
+    <ClInclude Include="Mysql\my_dir.h" />
+    <ClInclude Include="Mysql\my_getopt.h" />
+    <ClInclude Include="Mysql\my_global.h" />
+    <ClInclude Include="Mysql\my_list.h" />
+    <ClInclude Include="Mysql\my_pthread.h" />
+    <ClInclude Include="Mysql\my_sys.h" />
+    <ClInclude Include="Mysql\my_xml.h" />
+    <ClInclude Include="Mysql\m_ctype.h" />
+    <ClInclude Include="Mysql\m_string.h" />
+    <ClInclude Include="Mysql\sql_common.h" />
+    <ClInclude Include="Mysql\sql_state.h" />
+    <ClInclude Include="Mysql\sslopt-case.h" />
+    <ClInclude Include="Mysql\sslopt-longopts.h" />
+    <ClInclude Include="Mysql\sslopt-vars.h" />
+    <ClInclude Include="Mysql\typelib.h" />
+    <ClInclude Include="sdk\APIBlip.h" />
+    <ClInclude Include="sdk\APICamera.h" />
+    <ClInclude Include="sdk\APICef.h" />
+    <ClInclude Include="sdk\APICheckpoint.h" />
+    <ClInclude Include="sdk\APIEntity.h" />
+    <ClInclude Include="sdk\APILog.h" />
+    <ClInclude Include="sdk\APINpc.h" />
+    <ClInclude Include="sdk\APIObject.h" />
+    <ClInclude Include="sdk\APIPickup.h" />
+    <ClInclude Include="sdk\APIPlayer.h" />
+    <ClInclude Include="sdk\APIServer.h" />
+    <ClInclude Include="sdk\APIVehicle.h" />
+    <ClInclude Include="sdk\APIVisual.h" />
+    <ClInclude Include="sdk\APIWorld.h" />
+    <ClInclude Include="sdk\CMaths.h" />
+    <ClInclude Include="sdk\CVector2.h" />
+    <ClInclude Include="sdk\CVector3.h" />
+    <ClInclude Include="sdk\CVector4.h" />
+    <ClInclude Include="sdk\Plane.h" />
+    <ClInclude Include="sdk\Quaternion.h" />
+    <ClInclude Include="sdk\Structs.h" />
+    <ClInclude Include="sdk\util.h" />
+    <ClInclude Include="Timers.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Mysql\mysql\client_plugin.h.pp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{235D1887-3CD7-4754-963A-1BD2EAD55991}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Lua</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <ProjectName>Lua</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\Server\plugin\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\Server\32\plugin\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\Server\32\plugin\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\Server\plugin\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalOptions>Server.Launcher.lib </AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Configuration)\Server\32</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalOptions>Server.Launcher.lib </AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Configuration)\Server</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>Server.Launcher.lib </AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Configuration)\Server\32</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>Server.lib </AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Configuration)\Server;$(SolutionDir)\lib\$(Configuration)\;$(ProjectDir)lib\;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql64.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
