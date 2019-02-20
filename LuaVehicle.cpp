@@ -1,40 +1,4 @@
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include <iostream>
-#include <sstream>
-#include <limits>
-#include <stdexcept>
-#include <cstdint>
-#include <vector>
-#include <map>
-
-#include "api.h"
-
-// Math
-#include "sdk/CVector2.h"
-#include "sdk/CVector3.h"
-#include "sdk/CVector4.h"
-#include "sdk/Plane.h"
-#include "sdk/Quaternion.h"
-#include "sdk/util.h"
-
-#include "sdk/CMaths.h"
-#include "sdk/Structs.h"
-
-// API Function Imports
-#include "sdk/APICef.h"
-#include "sdk/APIVisual.h"
-#include "sdk/APIWorld.h"
-#include "sdk/APIEntity.h"
-#include "sdk/APICheckpoint.h"
-#include "sdk/APINpc.h"
-#include "sdk/APIObject.h"
-#include "sdk/APIPlayer.h"
-#include "sdk/APIServer.h"
-#include "sdk/APIVehicle.h"
-#include "sdk/APIBlip.h"
-#include "sdk/APICamera.h"
-#include "sdk/APILog.h"
+#include "sdk/GrandM.h"
 
 extern "C" {
 #include "inc_lua/lua.h"
@@ -64,6 +28,7 @@ std::unordered_map<std::string, luabridge::LuaRef> getKeyValueMap(const luabridg
 	push(L, table); // push table
 
 	lua_pushnil(L);  // push nil, so lua_next removes it from stack and puts (k, v) on stack
+
 	while (lua_next(L, -2) != 0)
 	{ // -2, because we have table at -1
 		if (lua_isstring(L, -2))
@@ -86,7 +51,7 @@ int Vehicle::Create(lua_State* L)
 	const int args = lua_gettop(L);
 	if (args == 4)
 	{
-		Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+		Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 		std::string model = lua_tostring(L, 2);
 		CVector3 poss;
 		CVector3 rott;
@@ -172,12 +137,16 @@ int Vehicle::Create(lua_State* L)
 			lua_pop(L, 1);
 		}
 
-		if (lua_isnumber(L, 4))
-			veh->entity = API::Vehicle::Create(model, poss, lua_tonumber(L, 4));
-		else
-			veh->entity = API::Vehicle::Create(model, poss, rott);
+		Objects::Entity entity;
 
-		veh = nullptr;
+		if (lua_isnumber(L, 4))
+			entity = API::Vehicle::Create(model.c_str(), poss, lua_tonumber(L, 4));
+		else
+			entity = API::Vehicle::Create(model.c_str(), poss, rott);
+
+		ent->entity = entity.GetID();
+
+		ent = nullptr;
 	}
 	else
 	{
@@ -193,25 +162,28 @@ int Vehicle::GetOccupant(lua_State* L)
 	const int args = lua_gettop(L);
 	if (args == 2)
 	{
-		Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+		Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-		const int occupant = API::Vehicle::GetOccupant(veh->entity, lua_tointeger(L, 2));
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Vehicle);
+
+		Objects::Entity occupant = API::Vehicle::GetOccupant(entity, lua_tointeger(L, 2));
 		lua_pop(L, args);
 
-		const int type = API::Entity::GetType(occupant);
-		switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+		switch (occupant.GetType())
 		{
-		case 0:
+		case GrandM::Player:
 		{
 			Player ent;
-			ent.entity = occupant;
+			ent.entity = occupant.GetID();
 			push(L, ent);
 			break;
 		}
-		case 3:
+		case GrandM::NPC:
 		{
 			NPC ent;
-			ent.entity = occupant;
+			ent.entity = occupant.GetID();
 			push(L, ent);
 			break;
 		}
@@ -220,7 +192,7 @@ int Vehicle::GetOccupant(lua_State* L)
 			break;
 		}
 
-		veh = nullptr;
+		ent = nullptr;
 	}
 	else
 	{
@@ -236,27 +208,31 @@ int Vehicle::GetOccupants(lua_State* L)
 	const int args = lua_gettop(L);
 	if (args == 1)
 	{
-		Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+		Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 		lua_pop(L, args);
 
-		const std::vector<int> occupants = API::Vehicle::GetOccupants(veh->entity);
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Vehicle);
+
+		Objects::Entity * occupants = API::Vehicle::GetOccupants(entity);
+
+		const int arraySize = (int)(sizeof(occupants) / sizeof(occupants[0]));
 
 		lua_newtable(L);
-
-		for (unsigned int i = 0; i < occupants.size(); i++)
+		for (unsigned int i = 0; i < arraySize; i++)
 		{
-			const int type = API::Entity::GetType(occupants[i]);
-			switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+			switch (occupants[i].GetType())
 			{
-			case 0: {
+			case GrandM::Player: {
 				Player ent;
-				ent.entity = occupants[i];
+				ent.entity = occupants[i].GetID();
 				push(L, ent);
 				break;
 			}
-			case 3: {
+			case GrandM::NPC: {
 				NPC ent;
-				ent.entity = occupants[i];
+				ent.entity = occupants[i].GetID();
 				push(L, ent);
 				break;
 			}
@@ -268,7 +244,7 @@ int Vehicle::GetOccupants(lua_State* L)
 			lua_rawseti(L, -2, i + 1);
 		}
 
-		veh = nullptr;
+		ent = nullptr;
 	}
 	else
 	{
@@ -284,12 +260,20 @@ int Vehicle::SetDoorsLockStateForPlayer(lua_State* L)
 	const int args = lua_gettop(L);
 	if (args == 2)
 	{
-		Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+		Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 		Player *player = luabridge::Userdata::get<Player>(L, 2, false);
 
-		API::Vehicle::SetDoorsLockState(veh->entity, lua_tointeger(L, 2), player->entity);
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Vehicle);
 
-		veh = nullptr;
+		Objects::Entity pEntity;
+		entity.SetID(player->entity);
+		entity.SetType(GrandM::EntityType::Player);
+
+		API::Vehicle::SetDoorsLockStateForPlayer(entity, lua_tointeger(L, 2), pEntity);
+
+		ent = nullptr;
 		player = nullptr;
 	}
 	else
@@ -308,7 +292,15 @@ int Vehicle::ShowBlip(lua_State* L)
 		Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 		Player *player = luabridge::Userdata::get<Player>(L, 2, false);
 
-		API::Blip::Show(ent->entity, player->entity);
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Vehicle);
+
+		Objects::Entity pEntity;
+		entity.SetID(player->entity);
+		entity.SetType(GrandM::EntityType::Player);
+
+		API::Blip::Show(entity, pEntity);
 
 		ent = nullptr;
 		player = nullptr;
@@ -329,7 +321,15 @@ int Vehicle::HideBlip(lua_State* L)
 		Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 		Player *player = luabridge::Userdata::get<Player>(L, 2, false);
 
-		API::Blip::Hide(ent->entity, player->entity);
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Vehicle);
+
+		Objects::Entity pEntity;
+		entity.SetID(player->entity);
+		entity.SetType(GrandM::EntityType::Player);
+
+		API::Blip::Hide(entity, pEntity);
 
 		ent = nullptr;
 		player = nullptr;

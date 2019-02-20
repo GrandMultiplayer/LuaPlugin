@@ -224,7 +224,7 @@ namespace API
 		/// </summary>
 		/// <param name="entity">The entity of the vehicle</param>
 		/// <returns name="ocupants">The occupants of the vehicle, vector[0] = driver, vector 1-11 = passenger seats</returns>
-		DLL_PUBLIC_I_C const Objects::Entity * GetOccupants(Objects::Entity entity);
+		DLL_PUBLIC_I_C Objects::Entity * GetOccupants(Objects::Entity entity);
 
 		/// <summary>
 		/// Gets the taxi light state of the vehicle

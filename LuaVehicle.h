@@ -18,10 +18,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
-			API::Entity::Destroy(veh->entity);
-			veh->entity = -1;
-			veh = nullptr;
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Entity::Destroy(entity);
+			
+			ent->entity = -1;
+			ent = nullptr;
 		}
 		else
 		{
@@ -36,10 +42,14 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
-
-			CVector3 poss = API::Entity::GetPosition(veh->entity);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			CVector3 poss = API::Entity::GetPosition(entity);
 
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
@@ -54,8 +64,7 @@ struct Vehicle
 			lua_pushinteger(L, poss.z);
 			lua_setfield(L, -2, "z");
 
-
-			veh = nullptr;
+			ent = nullptr;
 		}
 		else
 		{
@@ -71,7 +80,7 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2 || args == 4)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			CVector3 poss;
 
 			if (args == 2)
@@ -107,8 +116,12 @@ struct Vehicle
 				poss.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetPosition(veh->entity, poss);
-			veh = nullptr;
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Entity::SetPosition(entity, poss);
+			ent = nullptr;
 		}
 		else
 		{
@@ -123,10 +136,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
-
-			CVector3 rot = API::Entity::GetRotation(veh->entity);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			CVector3 rot = API::Entity::GetRotation(entity);
+			
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -140,8 +158,7 @@ struct Vehicle
 			lua_pushinteger(L, rot.z);
 			lua_setfield(L, -2, "z");
 
-
-			veh = nullptr;
+			ent = nullptr;
 		}
 		else
 		{
@@ -157,7 +174,7 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2 || args == 4)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			CVector3 rott;
 
 			if (args == 2)
@@ -193,8 +210,13 @@ struct Vehicle
 				rott.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetRotation(veh->entity, rott);
-			veh = nullptr;
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Entity::SetRotation(entity, rott);
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -209,14 +231,18 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
-
-			const float distance = API::Entity::GetViewDistance(veh->entity);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			const float distance = API::Entity::GetViewDistance(entity);
 
 			lua_pushnumber(L, distance);
 
-			veh = nullptr;
+			ent = nullptr;
 		}
 		else
 		{
@@ -232,10 +258,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Entity::SetViewDistance(veh->entity, lua_tonumber(L, 2));
-			veh = nullptr;
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Entity::SetViewDistance(entity, lua_tonumber(L, 2));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -250,14 +281,18 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			const int color = API::Vehicle::GetColor(veh->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			const int color = API::Vehicle::GetVehicleColor(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_pushinteger(L, color);
 
-			veh = nullptr;
+			ent = nullptr;
 		}
 		else
 		{
@@ -273,14 +308,18 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			const int type = API::Vehicle::GetColorType(veh->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			const int type = API::Vehicle::GetVehicleColorType(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_pushinteger(L, type);
 
-			veh = nullptr;
+			ent = nullptr;
 		}
 		else
 		{
@@ -296,9 +335,13 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			const Color color = API::Vehicle::GetCustomColor(veh->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			const Color color = API::Vehicle::GetVehicleRGBColor(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_newtable(L);
@@ -312,7 +355,7 @@ struct Vehicle
 			lua_pushinteger(L, color.Blue);
 			lua_setfield(L, -2, "b");
 
-			veh = nullptr;
+			ent = nullptr;
 		}
 		else
 		{
@@ -328,10 +371,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 4)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetColor(veh->entity, lua_tointeger(L, 2), lua_tointeger(L, 3), lua_tointeger(L, 4));
-			veh = nullptr;
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Vehicle::SetVehicleColor(entity, lua_tointeger(L, 2), lua_tointeger(L, 3), lua_tointeger(L, 4));
+			
+			ent = nullptr;
 		}
 		else
 		{
@@ -346,7 +394,7 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 5)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			Color color;
 
 			lua_getfield(L, 3, "r");
@@ -364,8 +412,12 @@ struct Vehicle
 			color.Blue = lua_tointeger(L, -2);
 			lua_pop(L, 1);
 
-			API::Vehicle::SetColor(veh->entity, lua_tointeger(L, 2), color);
-			veh = nullptr;
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Vehicle::SetVehicleRGBColor(entity, lua_tointeger(L, 2), color);
+			ent = nullptr;
 		}
 		else
 		{
@@ -380,12 +432,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushstring(L, API::Vehicle::GetNumberPlate(veh->entity).c_str());
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushstring(L, API::Vehicle::GetNumberPlate(entity).c_str());
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -401,11 +457,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
-			
-			API::Vehicle::SetNumberPlate(veh->entity, lua_tostring(L,2));
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			veh = nullptr;
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+			
+			API::Vehicle::SetNumberPlate(entity, lua_tostring(L,2));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -420,12 +480,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Vehicle::GetMod(veh->entity, lua_tointeger(L, 2)));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushinteger(L, API::Vehicle::GetMod(entity, lua_tointeger(L, 2)));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -441,11 +505,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 3)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetMod(veh->entity, lua_tointeger(L, 2), lua_tointeger(L, 3));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetMod(entity, lua_tointeger(L, 2), lua_tointeger(L, 3));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -460,12 +528,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Vehicle::GetEngineState(veh->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushboolean(L, API::Vehicle::GetEngineState(entity));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -481,11 +553,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 3)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetEngineState(veh->entity, lua_toboolean(L, 2), lua_toboolean(L, 3));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetEngineState(entity, lua_toboolean(L, 2), lua_toboolean(L, 3));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -500,12 +576,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Vehicle::GetDoorsLockState(veh->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushinteger(L, API::Vehicle::GetDoorsLockState(entity));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -521,11 +601,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetDoorsLockState(veh->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetDoorsLockState(entity, lua_tointeger(L, 2));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -542,12 +626,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushstring(L, API::Vehicle::GetModel(veh->entity).c_str());
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushstring(L, API::Vehicle::GetVehicleModel(entity).c_str());
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -563,12 +651,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Vehicle::GetNumberPlateStyle(veh->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushinteger(L, API::Vehicle::GetNumberPlateStyle(entity));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -584,11 +676,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
-			
-			API::Vehicle::SetNumberPlateStyle(veh->entity, lua_tointeger(L, 2));
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			veh = nullptr;
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+			
+			API::Vehicle::SetNumberPlateStyle(entity, lua_tointeger(L, 2));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -603,12 +699,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Vehicle::GetExtra(veh->entity, lua_tointeger(L,2)));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushboolean(L, API::Vehicle::GetExtra(entity, lua_tointeger(L,2)));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -624,11 +724,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 3)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetExtra(veh->entity, lua_tointeger(L, 2), lua_toboolean(L,3));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetExtra(entity, lua_tointeger(L, 2), lua_toboolean(L,3));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -643,12 +747,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushnumber(L, API::Vehicle::GetEngineHealth(veh->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushnumber(L, API::Vehicle::GetEngineHealth(entity));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -664,11 +772,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetEngineHealth(veh->entity, lua_tonumber(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetEngineHealth(entity, lua_tonumber(L, 2));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -683,12 +795,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushnumber(L, API::Vehicle::GetFuelTankHealth(veh->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushnumber(L, API::Vehicle::GetFuelTankHealth(entity));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -704,11 +820,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetFuelTankHealth(veh->entity, lua_tonumber(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetFuelTankHealth(entity, lua_tonumber(L, 2));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -723,11 +843,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::FixDeformation(veh->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::FixDeformation(entity);
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -745,12 +869,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Vehicle::GetTaxiLightState(veh->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushboolean(L, API::Vehicle::GetTaxiLightState(entity));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -766,11 +894,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetTaxiLightState(veh->entity, lua_toboolean(L,2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetTaxiLightState(entity, lua_toboolean(L,2));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -785,12 +917,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Vehicle::GetIndicatorState(veh->entity, lua_tonumber(L,2)));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushboolean(L, API::Vehicle::GetIndicatorState(entity, lua_tonumber(L,2)));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -806,11 +942,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 3)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetIndicatorState(veh->entity, lua_tointeger(L,2), lua_toboolean(L, 3));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetIndicatorState(entity, lua_tointeger(L,2), lua_toboolean(L, 3));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -825,12 +965,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Vehicle::GetInteriorLightState(veh->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushboolean(L, API::Vehicle::GetInteriorLightState(entity));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -846,11 +990,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetInteriorLightState(veh->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetInteriorLightState(entity, lua_toboolean(L, 2));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -865,12 +1013,16 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Vehicle::GetSirenSoundState(veh->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			lua_pushboolean(L, API::Vehicle::GetSirenSoundState(entity));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -886,11 +1038,15 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 2)
 		{
-			Vehicle *veh = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Vehicle::SetSirenSoundState(veh->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			veh = nullptr;
+			API::Vehicle::SetSirenSoundState(entity, lua_toboolean(L, 2));
+
+			ent = nullptr;
 		}
 		else
 		{
@@ -907,7 +1063,11 @@ struct Vehicle
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Blip::Create(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Blip::Create(entity);
 
 			ent = nullptr;
 		}
@@ -930,7 +1090,11 @@ struct Vehicle
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Blip::ShowToAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Blip::ShowToAll(entity);
 
 			ent = nullptr;
 		}
@@ -949,7 +1113,11 @@ struct Vehicle
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Blip::HideFromAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Blip::HideFromAll(entity);
 
 			ent = nullptr;
 		}
@@ -967,9 +1135,13 @@ struct Vehicle
 		if (args == 1)
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
-
-			const int color = API::Blip::GetColor(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			const int color = API::Blip::GetColor(entity);
 
 			lua_pushinteger(L, color);
 
@@ -991,7 +1163,11 @@ struct Vehicle
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Blip::SetColor(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Blip::SetColor(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1009,9 +1185,13 @@ struct Vehicle
 		if (args == 1)
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
-
-			const int sprite = API::Blip::GetSprite(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			const int sprite = API::Blip::GetSprite(entity);
 
 			lua_pushinteger(L, sprite);
 
@@ -1033,7 +1213,11 @@ struct Vehicle
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Blip::SetSprite(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Blip::SetSprite(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1051,9 +1235,13 @@ struct Vehicle
 		if (args == 1)
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
-
-			const std::string text = API::Blip::GetText(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			const std::string text = API::Blip::GetText(entity);
 
 			lua_pushstring(L, text.c_str());
 
@@ -1075,7 +1263,11 @@ struct Vehicle
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Blip::SetText(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Blip::SetText(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -1093,9 +1285,13 @@ struct Vehicle
 		if (args == 1)
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
-
-			const bool state = API::Blip::IsShortRanged(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			const bool state = API::Blip::IsShortRanged(entity);
 
 			lua_pushboolean(L, state);
 
@@ -1116,7 +1312,11 @@ struct Vehicle
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Blip::SetShortRanged(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Blip::SetShortRanged(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1136,7 +1336,11 @@ struct Vehicle
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Entity::GetHealth(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			lua_pushinteger(L, API::Entity::GetHealth(entity));
 
 			ent = nullptr;
 		}
@@ -1156,7 +1360,11 @@ struct Vehicle
 		{
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 
-			API::Entity::SetHealth(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Entity::SetHealth(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1176,7 +1384,11 @@ struct Vehicle
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Entity::IsAlive(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			lua_pushboolean(L, API::Entity::IsAlive(entity));
 
 			ent = nullptr;
 		}
@@ -1196,12 +1408,16 @@ struct Vehicle
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			const int vehicle = API::Vehicle::GetTowedVehicle(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			if (vehicle > -1)
+			Objects::Entity vehicle = API::Vehicle::GetTowedVehicle(entity);
+
+			if (vehicle.GetID() > -1)
 			{
 				Vehicle ent;
-				ent.entity = vehicle;
+				ent.entity = vehicle.GetID();
 				push(L, ent);
 			}
 			else
@@ -1224,13 +1440,21 @@ struct Vehicle
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			Vehicle *tow = luabridge::Userdata::get<Vehicle>(L, 1, false);
-			Vehicle *vehicle = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
+			Vehicle *vehicle = luabridge::Userdata::get<Vehicle>(L, 2, false);
 			lua_pop(L, args);
 
-			API::Vehicle::SetTowedVehicle(tow->entity, vehicle->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
 
-			tow = vehicle = nullptr;
+			Objects::Entity vEntity;
+			entity.SetID(vehicle->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			API::Vehicle::SetTowedVehicle(entity, vEntity);
+
+			ent = vehicle = nullptr;
 		}
 		else
 		{
@@ -1247,7 +1471,11 @@ struct Vehicle
 			Vehicle *ent = luabridge::Userdata::get<Vehicle>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Vehicle::IsTowed(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Vehicle);
+
+			lua_pushboolean(L, API::Vehicle::IsTowed(entity));
 
 			ent = nullptr;
 		}
