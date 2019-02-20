@@ -73,8 +73,9 @@ struct NPC
 				rott.z = lua_tonumber(L, -2);
 				lua_pop(L, 1);
 			}
-			
-			ent->entity = API::NPC::Create(model, poss, rott);
+
+			Objects::Entity entity = API::NPC::Create(model, poss, rott);
+			ent->entity = entity.GetID();
 
 			ent = nullptr;
 		}
@@ -92,7 +93,12 @@ struct NPC
 		if (args == 1)
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
-			API::Entity::Destroy(ent->entity);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::Destroy(entity);
 			ent->entity = -1;
 			ent = nullptr;
 		}
@@ -112,7 +118,11 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 poss = API::Entity::GetPosition(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			CVector3 poss = API::Entity::GetPosition(entity);
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -179,7 +189,11 @@ struct NPC
 				poss.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetPosition(ent->entity, poss);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetPosition(entity, poss);
 			ent = nullptr;
 		}
 		else
@@ -198,7 +212,11 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 rot = API::Entity::GetRotation(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			CVector3 rot = API::Entity::GetRotation(entity);
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -265,7 +283,11 @@ struct NPC
 				rott.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetRotation(ent->entity, rott);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetRotation(entity, rott);
 			ent = nullptr;
 		}
 		else
@@ -284,7 +306,11 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			const float distance = API::Entity::GetViewDistance(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			const float distance = API::Entity::GetViewDistance(entity);
 
 			lua_pushnumber(L, distance);
 
@@ -306,7 +332,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Entity::SetViewDistance(ent->entity, lua_tonumber(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetViewDistance(entity, lua_tonumber(L, 2));
 			ent = nullptr;
 		}
 		else
@@ -324,7 +354,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			PedComponent comp = API::Entity::GetPedComponent(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			GrandM::Model::Component comp = API::Entity::GetPedComponent(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_newtable(L);
@@ -357,7 +391,7 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			const int index = lua_tointeger(L, 2);
 
-			PedComponent comp;
+			GrandM::Model::Component comp;
 
 			if (lua_istable(L, 3))
 			{
@@ -377,7 +411,11 @@ struct NPC
 				lua_pop(L, 1);
 			}
 
-			API::Entity::SetPedComponent(ent->entity, index, comp);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetPedComponent(entity, index, comp);
 
 			ent = nullptr;
 		}
@@ -397,7 +435,11 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			PedHeadBlend blend = API::Entity::GetPedHeadBlend(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			GrandM::Model::HeadBlend blend = API::Entity::GetPedHeadBlend(entity);
 
 			lua_newtable(L);
 			//table{shapefirst = int, shapesecond = int, shapethird = int, skinfirst = int, skinsecond = int, skinthird = int, shapemix = float, skinmix = float, thirdmix = float}
@@ -446,7 +488,7 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			PedHeadBlend headblend;
+			GrandM::Model::HeadBlend headblend;
 			
 			if (lua_istable(L, 2))
 			{
@@ -496,7 +538,11 @@ struct NPC
 				lua_pop(L, 1);
 			}
 
-			API::Entity::SetPedHeadBlend(ent->entity, headblend);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetPedHeadBlend(entity, headblend);
 
 			ent = nullptr;
 		}
@@ -515,7 +561,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			PedHeadOverlay overlay = API::Entity::GetPedHeadOverlay(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			GrandM::Model::HeadOverlay overlay = API::Entity::GetPedHeadOverlay(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_newtable(L);
@@ -555,7 +605,7 @@ struct NPC
 
 			const int overlayid = lua_tointeger(L, 2);
 
-			PedHeadOverlay overlay;
+			GrandM::Model::HeadOverlay overlay;
 
 			if (lua_istable(L, 3))
 			{
@@ -584,11 +634,13 @@ struct NPC
 				lua_rawgeti(L, 3, 1);
 				overlay.secondColorID = lua_tointeger(L, -2);
 				lua_pop(L, 1);
-
-				
 			}
 
-			API::Entity::SetPedHeadOverlay(ent->entity, overlayid, overlay);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetPedHeadOverlay(entity, overlayid, overlay);
 
 			ent = nullptr;
 		}
@@ -607,7 +659,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			PedProp prop = API::Entity::GetPedProp(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			GrandM::Model::Prop prop = API::Entity::GetPedProp(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_newtable(L);
@@ -638,7 +694,7 @@ struct NPC
 
 			const int componentid = lua_tointeger(L, 2);
 
-			PedProp prop;
+			GrandM::Model::Prop prop;
 
 			if (lua_istable(L, 3))
 			{
@@ -654,7 +710,11 @@ struct NPC
 				lua_pop(L, 1);
 			}
 
-			API::Entity::SetPedProp(ent->entity, componentid, prop);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetPedProp(entity, componentid, prop);
 
 			ent = nullptr;
 		}
@@ -673,7 +733,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			float scale = API::Entity::GetPedFaceFeature(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			float scale = API::Entity::GetPedFaceFeature(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_pushnumber(L, scale);
@@ -696,7 +760,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Entity::SetPedFaceFeature(ent->entity, lua_tointeger(L, 2), lua_tonumber(L, 3));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetPedFaceFeature(entity, lua_tointeger(L, 2), lua_tonumber(L, 3));
 
 			ent = nullptr;
 		}
@@ -716,7 +784,11 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushstring(L, API::Entity::GetNametag(ent->entity).c_str());
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			lua_pushstring(L, API::Entity::GetNametag(entity).c_str());
 
 			ent = nullptr;
 		}
@@ -736,7 +808,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Entity::SetNametag(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetNametag(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -756,7 +832,11 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Entity::IsNametagVisible(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			lua_pushboolean(L, API::Entity::IsNametagVisible(entity));
 
 			ent = nullptr;
 		}
@@ -776,7 +856,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Entity::SetNametagVisible(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetNametagVisible(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -796,7 +880,11 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Entity::IsHealthbarVisible(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			lua_pushboolean(L, API::Entity::IsHealthbarVisible(entity));
 
 			ent = nullptr;
 		}
@@ -815,7 +903,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Entity::SetHealthbarVisible(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetHealthbarVisible(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -835,7 +927,11 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushnumber(L, API::Entity::GetNametagDistance(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			lua_pushnumber(L, API::Entity::GetNametagDistance(entity));
 
 			ent = nullptr;
 		}
@@ -854,7 +950,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Entity::SetNametagDistance(ent->entity, lua_tonumber(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetNametagDistance(entity, lua_tonumber(L, 2));
 
 			ent = nullptr;
 		}
@@ -874,7 +974,11 @@ struct NPC
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			Color color = API::Entity::GetNametagColor(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			Color color = API::Entity::GetNametagColor(entity);
 
 			lua_newtable(L);
 
@@ -928,7 +1032,11 @@ struct NPC
 			color.Alpha = lua_tointeger(L, -2);
 			lua_pop(L, 1);
 
-			API::Entity::SetNametagColor(ent->entity, color);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetNametagColor(entity, color);
 
 			ent = nullptr;
 		}
@@ -947,7 +1055,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Blip::Create(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Blip::Create(entity);
 
 			ent = nullptr;
 		}
@@ -970,7 +1082,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Blip::ShowToAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Blip::ShowToAll(entity);
 
 			ent = nullptr;
 		}
@@ -989,7 +1105,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Blip::HideFromAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Blip::HideFromAll(entity);
 
 			ent = nullptr;
 		}
@@ -1008,7 +1128,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			const int color = API::Blip::GetColor(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			const int color = API::Blip::GetColor(entity);
 			lua_pop(L, args);
 
 			lua_pushinteger(L, color);
@@ -1031,7 +1155,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Blip::SetColor(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Blip::SetColor(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1050,7 +1178,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			const int sprite = API::Blip::GetSprite(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			const int sprite = API::Blip::GetSprite(entity);
 			lua_pop(L, args);
 
 			lua_pushinteger(L, sprite);
@@ -1073,7 +1205,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Blip::SetSprite(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Blip::SetSprite(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1091,9 +1227,13 @@ struct NPC
 		if (args == 1)
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
-
-			const std::string text = API::Blip::GetText(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			const std::string text = API::Blip::GetText(entity);
 
 			lua_pushstring(L, text.c_str());
 
@@ -1115,7 +1255,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Blip::SetText(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Blip::SetText(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -1133,9 +1277,13 @@ struct NPC
 		if (args == 1)
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
-
-			const bool state = API::Blip::IsShortRanged(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			const bool state = API::Blip::IsShortRanged(entity);
 
 			lua_pushboolean(L, state);
 
@@ -1157,7 +1305,11 @@ struct NPC
 		{
 			NPC* ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Blip::SetShortRanged(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Blip::SetShortRanged(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1177,7 +1329,11 @@ struct NPC
 			NPC *ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Entity::GetHealth(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			lua_pushinteger(L, API::Entity::GetHealth(entity));
 
 			ent = nullptr;
 		}
@@ -1197,7 +1353,11 @@ struct NPC
 		{
 			NPC *ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Entity::SetHealth(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetHealth(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1217,7 +1377,11 @@ struct NPC
 			NPC *ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Entity::GetArmour(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			lua_pushinteger(L, API::Entity::GetArmour(entity));
 
 			ent = nullptr;
 		}
@@ -1237,7 +1401,11 @@ struct NPC
 		{
 			NPC *ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Entity::SetArmour(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::SetArmour(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1256,7 +1424,11 @@ struct NPC
 		{
 			NPC *ent = luabridge::Userdata::get<NPC>(L, 1, false);
 
-			API::Entity::Revive(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			API::Entity::Revive(entity);
 
 			ent = nullptr;
 		}
@@ -1276,7 +1448,11 @@ struct NPC
 			NPC *ent = luabridge::Userdata::get<NPC>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Entity::IsAlive(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::NPC);
+
+			lua_pushboolean(L, API::Entity::IsAlive(entity));
 
 			ent = nullptr;
 		}
