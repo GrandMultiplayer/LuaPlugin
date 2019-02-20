@@ -1,42 +1,4 @@
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include <iostream>
-#include <sstream>
-#include <limits>
-#include <stdexcept>
-#include <cstdint>
-#include <vector>
-#include <map>
-#include <chrono>
-#include <atomic>
-
-#include "api.h"
-
-// Math
-#include "sdk/CVector2.h"
-#include "sdk/CVector3.h"
-#include "sdk/CVector4.h"
-#include "sdk/Plane.h"
-#include "sdk/Quaternion.h"
-#include "sdk/util.h"
-
-#include "sdk/CMaths.h"
-#include "sdk/Structs.h"
-
-// API Function Imports
-#include "sdk/APICef.h"
-#include "sdk/APIVisual.h"
-#include "sdk/APIWorld.h"
-#include "sdk/APIEntity.h"
-#include "sdk/APICheckpoint.h"
-#include "sdk/APINpc.h"
-#include "sdk/APIObject.h"
-#include "sdk/APIPlayer.h"
-#include "sdk/APIServer.h"
-#include "sdk/APIVehicle.h"
-#include "sdk/APIBlip.h"
-#include "sdk/APICamera.h"
-#include "sdk/APILog.h"
+#include "sdk/GrandM.h"
 
 extern "C" {
 #include "inc_lua/lua.h"
@@ -65,8 +27,14 @@ int Player::GetVehicle(lua_State* L)
 		Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 		lua_pop(L, args);
 
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Player);
+
+		Objects::Entity vehicle = API::Player::GetVehicle(entity);
+
 		Vehicle veh;
-		veh.entity = API::Player::GetVehicle(ent->entity);
+		veh.entity = vehicle.GetID();
 
 		push(L, veh);
 
@@ -89,7 +57,15 @@ int Player::PutInVehicle(lua_State* L)
 		Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 		Vehicle* veh = luabridge::Userdata::get<Vehicle>(L, 2, false);
 
-		API::Player::PutInVehicle(ent->entity, veh->entity, lua_tointeger(L, 3));
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Player);
+
+		Objects::Entity vEntity;
+		vEntity.SetID(veh->entity);
+		vEntity.SetType(GrandM::EntityType::Vehicle);
+
+		API::Player::PutInVehicle(entity, vEntity, lua_tointeger(L, 3));
 
 		ent = nullptr;
 		veh = nullptr;
@@ -110,7 +86,15 @@ int Player::ShowBlip(lua_State* L)
 		Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 		Player* player = luabridge::Userdata::get<Player>(L, 2, false);
 
-		API::Blip::Show(ent->entity, player->entity);
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Player);
+
+		Objects::Entity pEntity;
+		pEntity.SetID(player->entity);
+		pEntity.SetType(GrandM::EntityType::Player);
+
+		API::Blip::Show(entity, pEntity);
 
 		ent = nullptr;
 		player = nullptr;
@@ -131,7 +115,15 @@ int Player::HideBlip(lua_State* L)
 		Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 		Player* player = luabridge::Userdata::get<Player>(L, 2, false);
 
-		API::Blip::Hide(ent->entity, player->entity);
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Player);
+
+		Objects::Entity pEntity;
+		pEntity.SetID(player->entity);
+		pEntity.SetType(GrandM::EntityType::Player);
+
+		API::Blip::Hide(entity, pEntity);
 
 		ent = nullptr;
 		player = nullptr;
@@ -150,6 +142,10 @@ int Player::AttachCamera(lua_State* L)
 	if (args >= 4)
 	{
 		Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
+
+		Objects::Entity entity;
+		entity.SetID(ent->entity);
+		entity.SetType(GrandM::EntityType::Player);
 
 		//(Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
 		const int type = lua_tointeger(L, 2);
@@ -188,29 +184,55 @@ int Player::AttachCamera(lua_State* L)
 			offset.z = lua_tonumber(L, 6);
 		}
 
+		luabridge::Userdata *test = luabridge::Userdata::getExact<Player>(L, 3);
+
 		if (type == 0)
 		{
-			Player *entity = luabridge::Userdata::get<Player>(L, 3, false);
-			API::Camera::Attach(ent->entity, entity->entity, offset);
-			entity = nullptr;
+			Player *oth = luabridge::Userdata::get<Player>(L, 3, false);
+
+			Objects::Entity other;
+			other.SetID(ent->entity);
+			other.SetType(GrandM::EntityType::Player);
+
+			API::Camera::Attach(entity, other, offset);
+
+			oth = nullptr;
 		}
 		else if (type == 1)
 		{
-			Vehicle *entity = luabridge::Userdata::get<Vehicle>(L, 3, false);
-			API::Camera::Attach(ent->entity, entity->entity, offset);
-			entity = nullptr;
+			Vehicle *oth = luabridge::Userdata::get<Vehicle>(L, 3, false);
+
+			Objects::Entity other;
+			other.SetID(ent->entity);
+			other.SetType(GrandM::EntityType::Vehicle);
+
+			API::Camera::Attach(entity, other, offset);
+
+			oth = nullptr;
 		}
 		else if (type == 2)
 		{
-			Object *entity = luabridge::Userdata::get<Object>(L, 3, false);
-			API::Camera::Attach(ent->entity, entity->entity, offset);
-			entity = nullptr;
+			Object *oth = luabridge::Userdata::get<Object>(L, 3, false);
+
+			Objects::Entity other;
+			other.SetID(ent->entity);
+			other.SetType(GrandM::EntityType::Object);
+
+			API::Camera::Attach(entity, other, offset);
+
+			oth = nullptr;
 		}
 		else if (type == 3)
 		{
-			NPC *entity = luabridge::Userdata::get<NPC>(L, 3, false);
-			API::Camera::Attach(ent->entity, entity->entity, offset);
-			entity = nullptr;
+			NPC *oth = luabridge::Userdata::get<NPC>(L, 3, false);
+
+			Objects::Entity other;
+			other.SetID(ent->entity);
+			other.SetType(GrandM::EntityType::NPC);
+
+			API::Camera::Attach(entity, other, offset);
+
+			oth = nullptr;
 		}
 		else
 		{

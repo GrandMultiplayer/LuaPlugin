@@ -268,8 +268,8 @@ int Vehicle::SetDoorsLockStateForPlayer(lua_State* L)
 		entity.SetType(GrandM::EntityType::Vehicle);
 
 		Objects::Entity pEntity;
-		entity.SetID(player->entity);
-		entity.SetType(GrandM::EntityType::Player);
+		pEntity.SetID(player->entity);
+		pEntity.SetType(GrandM::EntityType::Player);
 
 		API::Vehicle::SetDoorsLockStateForPlayer(entity, lua_tointeger(L, 2), pEntity);
 
@@ -297,8 +297,8 @@ int Vehicle::ShowBlip(lua_State* L)
 		entity.SetType(GrandM::EntityType::Vehicle);
 
 		Objects::Entity pEntity;
-		entity.SetID(player->entity);
-		entity.SetType(GrandM::EntityType::Player);
+		pEntity.SetID(player->entity);
+		pEntity.SetType(GrandM::EntityType::Player);
 
 		API::Blip::Show(entity, pEntity);
 
@@ -326,8 +326,8 @@ int Vehicle::HideBlip(lua_State* L)
 		entity.SetType(GrandM::EntityType::Vehicle);
 
 		Objects::Entity pEntity;
-		entity.SetID(player->entity);
-		entity.SetType(GrandM::EntityType::Player);
+		pEntity.SetID(player->entity);
+		pEntity.SetType(GrandM::EntityType::Player);
 
 		API::Blip::Hide(entity, pEntity);
 

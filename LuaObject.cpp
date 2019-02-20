@@ -32,8 +32,8 @@ int Object::ShowBlip(lua_State* L)
 		entity.SetType(GrandM::EntityType::Object);
 
 		Objects::Entity pEntity;
-		entity.SetID(player->entity);
-		entity.SetType(GrandM::EntityType::Player);
+		pEntity.SetID(player->entity);
+		pEntity.SetType(GrandM::EntityType::Player);
 
 		API::Blip::Show(entity, pEntity);
 
@@ -61,8 +61,8 @@ int Object::HideBlip(lua_State* L)
 		entity.SetType(GrandM::EntityType::Object);
 
 		Objects::Entity pEntity;
-		entity.SetID(player->entity);
-		entity.SetType(GrandM::EntityType::Player);
+		pEntity.SetID(player->entity);
+		pEntity.SetType(GrandM::EntityType::Player);
 
 		API::Blip::Hide(entity, pEntity);
 
