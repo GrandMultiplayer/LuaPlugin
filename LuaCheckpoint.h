@@ -79,7 +79,8 @@ struct Checkpoint
 			// Reserved
 			const int reserved = lua_tonumber(L, 5);
 
-			ent->entity = API::Checkpoint::Create(poss, radius, col, reserved);
+			Objects::Entity entity = API::Checkpoint::Create(poss, radius, col, reserved);
+			ent->entity = entity.GetID();
 
 			ent = nullptr;
 		}
@@ -97,7 +98,12 @@ struct Checkpoint
 		if (args == 1)
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
-			API::Entity::Destroy(ent->entity);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Entity::Destroy(entity);
 			ent->entity = -1;
 			ent = nullptr;
 		}
@@ -117,7 +123,11 @@ struct Checkpoint
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 poss = API::Entity::GetPosition(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			CVector3 poss = API::Entity::GetPosition(entity);
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -184,7 +194,12 @@ struct Checkpoint
 				poss.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetPosition(ent->entity, poss);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Entity::SetPosition(entity, poss);
+
 			ent = nullptr;
 		}
 		else
@@ -206,7 +221,11 @@ struct Checkpoint
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 			lua_pop(L, args);
 
-			float height = API::Checkpoint::GetNearHeight(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			float height = API::Checkpoint::GetNearHeight(entity);
 			
 			lua_pushnumber(L, height);
 
@@ -228,7 +247,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			API::Checkpoint::SetNearHeight(ent->entity, lua_tonumber(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Checkpoint::SetNearHeight(entity, lua_tonumber(L, 2));
 
 			ent = nullptr;
 		}
@@ -248,7 +271,11 @@ struct Checkpoint
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 			lua_pop(L, args);
 
-			float height = API::Checkpoint::GetFarHeight(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			float height = API::Checkpoint::GetFarHeight(entity);
 
 			lua_pushnumber(L, height);
 
@@ -272,7 +299,11 @@ struct Checkpoint
 
 			const float height = lua_tonumber(L, 2);
 
-			API::Checkpoint::SetFarHeight(ent->entity, height);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Checkpoint::SetFarHeight(entity, height);
 
 			ent = nullptr;
 		}
@@ -292,7 +323,11 @@ struct Checkpoint
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 			lua_pop(L, args);
 
-			const float distance = API::Entity::GetViewDistance(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			const float distance = API::Entity::GetViewDistance(entity);
 
 			lua_pushnumber(L, distance);
 
@@ -316,7 +351,11 @@ struct Checkpoint
 
 			const float distance = lua_tonumber(L, 2);
 
-			API::Entity::SetViewDistance(ent->entity, distance);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Entity::SetViewDistance(entity, distance);
 			ent = nullptr;
 		}
 		else
@@ -335,7 +374,11 @@ struct Checkpoint
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 pointTo = API::Checkpoint::GetPointTo(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			CVector3 pointTo = API::Checkpoint::GetPointTo(entity);
 
 			lua_newtable(L);
 
@@ -395,7 +438,11 @@ struct Checkpoint
 				pointTo.x = lua_tonumber(L, 4);
 			}
 
-			API::Checkpoint::PointTo(ent->entity, pointTo);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Checkpoint::PointTo(entity, pointTo);
 			ent = nullptr;
 		}
 		else
@@ -413,8 +460,12 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
 			
-			lua_pushinteger(L, API::Checkpoint::GetType(ent->entity));
+			lua_pushinteger(L, API::Checkpoint::GetType(entity));
 
 			ent = nullptr;
 		}
@@ -434,7 +485,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			API::Checkpoint::SetType(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Checkpoint::SetType(entity, lua_tointeger(L, 2));
 			ent = nullptr;
 		}
 		else
@@ -453,7 +508,11 @@ struct Checkpoint
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 			lua_pop(L, args);
 
-			const Color color = API::Checkpoint::GetColor(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			const Color color = API::Checkpoint::GetColor(entity);
 
 			lua_newtable(L);
 
@@ -493,7 +552,11 @@ struct Checkpoint
 			color.Blue = lua_tointeger(L, 4);
 			color.Alpha = lua_tointeger(L, 5);
 
-			API::Checkpoint::SetColor(ent->entity, color);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Checkpoint::SetColor(entity, color);
 			ent = nullptr;
 		}
 		else
@@ -511,7 +574,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			API::Blip::Create(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Blip::Create(entity);
 
 			ent = nullptr;
 		}
@@ -533,7 +600,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			API::Blip::ShowToAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Blip::ShowToAll(entity);
 
 			ent = nullptr;
 		}
@@ -552,7 +623,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			API::Blip::HideFromAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Blip::HideFromAll(entity);
 
 			ent = nullptr;
 		}
@@ -572,7 +647,11 @@ struct Checkpoint
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 			lua_pop(L, args);
 
-			const int color = API::Blip::GetColor(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			const int color = API::Blip::GetColor(entity);
 
 			lua_pushinteger(L, color);
 
@@ -594,7 +673,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			API::Blip::SetColor(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Blip::SetColor(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -613,7 +696,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			const int sprite = API::Blip::GetSprite(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			const int sprite = API::Blip::GetSprite(entity);
 			lua_pop(L, args);
 
 			lua_pushinteger(L, sprite);
@@ -636,7 +723,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			API::Blip::SetSprite(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Blip::SetSprite(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -655,7 +746,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			const std::string text = API::Blip::GetText(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			const std::string text = API::Blip::GetText(entity);
 			lua_pop(L, args);
 
 			lua_pushstring(L, text.c_str());
@@ -678,7 +773,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			API::Blip::SetText(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Blip::SetText(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -697,7 +796,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			const bool state = API::Blip::IsShortRanged(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			const bool state = API::Blip::IsShortRanged(entity);
 			lua_pop(L, args);
 
 			lua_pushboolean(L, state);
@@ -720,7 +823,11 @@ struct Checkpoint
 		{
 			Checkpoint* ent = luabridge::Userdata::get<Checkpoint>(L, 1, false);
 
-			API::Blip::SetShortRanged(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Checkpoint);
+
+			API::Blip::SetShortRanged(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
