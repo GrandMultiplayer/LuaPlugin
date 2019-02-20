@@ -39,7 +39,9 @@ struct Blip
 
 			}
 
-			ent->entity = API::Blip::Create(pos);
+			Objects::Entity entity = API::Blip::Create(pos);
+
+			ent->entity = entity.GetID();
 
 			ent = nullptr;
 		}
@@ -59,7 +61,11 @@ struct Blip
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 poss = API::Entity::GetPosition(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			CVector3 poss = API::Entity::GetPosition(entity);
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -126,7 +132,12 @@ struct Blip
 				poss.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetPosition(ent->entity, poss);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			API::Entity::SetPosition(entity, poss);
+
 			ent = nullptr;
 		}
 		else
@@ -147,7 +158,11 @@ struct Blip
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
 
-			API::Blip::ShowToAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			API::Blip::ShowToAll(entity);
 
 			ent = nullptr;
 		}
@@ -166,7 +181,11 @@ struct Blip
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
 
-			API::Blip::HideFromAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			API::Blip::HideFromAll(entity);
 
 			ent = nullptr;
 		}
@@ -184,9 +203,13 @@ struct Blip
 		if (args == 1)
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
-
-			const int color = API::Blip::GetColor(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			const int color = API::Blip::GetColor(entity);
 
 			lua_pushinteger(L, color);
 
@@ -208,7 +231,11 @@ struct Blip
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
 
-			API::Blip::SetColor(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			API::Blip::SetColor(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -226,9 +253,13 @@ struct Blip
 		if (args == 1)
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
-
-			const int sprite = API::Blip::GetSprite(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			const int sprite = API::Blip::GetSprite(entity);
 
 			lua_pushinteger(L, sprite);
 
@@ -250,7 +281,11 @@ struct Blip
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
 
-			API::Blip::SetSprite(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			API::Blip::SetSprite(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -268,9 +303,13 @@ struct Blip
 		if (args == 1)
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
-
-			const std::string text = API::Blip::GetText(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			const std::string text = API::Blip::GetText(entity);
 
 			lua_pushstring(L, text.c_str());
 
@@ -292,7 +331,11 @@ struct Blip
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
 
-			API::Blip::SetText(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			API::Blip::SetText(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -310,9 +353,13 @@ struct Blip
 		if (args == 1)
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
-
-			const bool state = API::Blip::IsShortRanged(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			const bool state = API::Blip::IsShortRanged(entity);
 
 			lua_pushboolean(L, state);
 
@@ -334,7 +381,11 @@ struct Blip
 		{
 			Blip* ent = luabridge::Userdata::get<Blip>(L, 1, false);
 
-			API::Blip::SetShortRanged(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Blip);
+
+			API::Blip::SetShortRanged(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
