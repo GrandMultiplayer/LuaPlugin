@@ -19,7 +19,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 poss = API::Entity::GetPosition(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			CVector3 poss = API::Entity::GetPosition(entity);
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -86,7 +90,11 @@ struct Player
 				poss.z = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetPosition(ent->entity, poss);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetPosition(entity, poss);
 			ent = nullptr;
 		}
 		else
@@ -105,7 +113,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 rot = API::Entity::GetRotation(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			CVector3 rot = API::Entity::GetRotation(entity);
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -172,7 +184,11 @@ struct Player
 				rott.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetRotation(ent->entity, rott);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetRotation(entity, rott);
 			ent = nullptr;
 		}
 		else
@@ -191,7 +207,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			const float distance = API::Entity::GetViewDistance(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			const float distance = API::Entity::GetViewDistance(entity);
 
 			lua_pushnumber(L, distance);
 
@@ -213,7 +233,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Entity::SetViewDistance(ent->entity, lua_tonumber(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetViewDistance(entity, lua_tonumber(L, 2));
 			ent = nullptr;
 		}
 		else
@@ -231,7 +255,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			PedComponent comp = API::Entity::GetPedComponent(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			GrandM::Model::Component comp = API::Entity::GetPedComponent(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_newtable(L);
@@ -264,7 +292,7 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			const int index = lua_tointeger(L, 2);
 
-			PedComponent comp;
+			GrandM::Model::Component comp;
 
 			if (lua_istable(L, 3))
 			{
@@ -284,7 +312,11 @@ struct Player
 				lua_pop(L, 1);
 			}
 
-			API::Entity::SetPedComponent(ent->entity, index, comp);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetPedComponent(entity, index, comp);
 
 			ent = nullptr;
 		}
@@ -304,7 +336,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			PedHeadBlend blend = API::Entity::GetPedHeadBlend(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			GrandM::Model::HeadBlend blend = API::Entity::GetPedHeadBlend(entity);
 
 			lua_newtable(L);
 			//table{shapefirst = int, shapesecond = int, shapethird = int, skinfirst = int, skinsecond = int, skinthird = int, shapemix = float, skinmix = float, thirdmix = float}
@@ -353,7 +389,7 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			PedHeadBlend headblend;
+			GrandM::Model::HeadBlend headblend;
 
 			if (lua_istable(L, 2))
 			{
@@ -403,7 +439,11 @@ struct Player
 				lua_pop(L, 1);
 			}
 
-			API::Entity::SetPedHeadBlend(ent->entity, headblend);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetPedHeadBlend(entity, headblend);
 
 			ent = nullptr;
 		}
@@ -422,7 +462,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			PedHeadOverlay overlay = API::Entity::GetPedHeadOverlay(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			GrandM::Model::HeadOverlay overlay = API::Entity::GetPedHeadOverlay(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_newtable(L);
@@ -462,7 +506,7 @@ struct Player
 
 			const int overlayid = lua_tointeger(L, 2);
 
-			PedHeadOverlay overlay;
+			GrandM::Model::HeadOverlay overlay;
 
 			if (lua_istable(L, 3))
 			{
@@ -495,7 +539,11 @@ struct Player
 
 			}
 
-			API::Entity::SetPedHeadOverlay(ent->entity, overlayid, overlay);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetPedHeadOverlay(entity, overlayid, overlay);
 
 			ent = nullptr;
 		}
@@ -514,7 +562,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			PedProp prop = API::Entity::GetPedProp(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			GrandM::Model::Prop prop = API::Entity::GetPedProp(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_newtable(L);
@@ -545,7 +597,7 @@ struct Player
 
 			const int componentid = lua_tointeger(L, 2);
 
-			PedProp prop;
+			GrandM::Model::Prop prop;
 
 			if (lua_istable(L, 3))
 			{
@@ -561,7 +613,11 @@ struct Player
 				lua_pop(L, 1);
 			}
 
-			API::Entity::SetPedProp(ent->entity, componentid, prop);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetPedProp(entity, componentid, prop);
 
 			ent = nullptr;
 		}
@@ -580,7 +636,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			float scale = API::Entity::GetPedFaceFeature(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			float scale = API::Entity::GetPedFaceFeature(entity, lua_tointeger(L, 2));
 			lua_pop(L, args);
 
 			lua_pushnumber(L, scale);
@@ -603,7 +663,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Entity::SetPedFaceFeature(ent->entity, lua_tointeger(L, 2), lua_tonumber(L, 3));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetPedFaceFeature(entity, lua_tointeger(L, 2), lua_tonumber(L, 3));
 
 			ent = nullptr;
 		}
@@ -623,7 +687,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			std::string model = API::Player::GetModel(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			std::string model = API::Player::GetPlayerModel(entity);
 
 			lua_pushstring(L, model.c_str());
 
@@ -645,7 +713,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Player::SetModel(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Player::SetPlayerModel(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -663,8 +735,12 @@ struct Player
 		if (args == 5)
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
 			
-			API::Visual::ShowNotificationToPlayer(ent->entity, lua_tostring(L, 2), lua_tostring(L, 3), lua_tointeger(L, 4), lua_tointeger(L, 5), lua_tostring(L, 6), lua_tostring(L, 7));
+			API::Visual::ShowNotificationToPlayer(entity, lua_tostring(L, 2), lua_tostring(L, 3), lua_tointeger(L, 4), lua_tointeger(L, 5), lua_tostring(L, 6), lua_tostring(L, 7));
 
 			ent = nullptr;
 		}
@@ -684,7 +760,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::World::LoadIPL(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::World::LoadIPLForPlayer(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -703,7 +783,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::World::UnloadIPL(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::World::UnloadIPLForPlayer(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -721,7 +805,12 @@ struct Player
 		if (args == 2)
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
-			API::Visual::SendChatMessageToPlayer(ent->entity, lua_tostring(L, 2));
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Visual::SendChatMessageToPlayer(entity, lua_tostring(L, 2));
 			ent = nullptr;
 		}
 		else
@@ -740,7 +829,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushstring(L, API::Player::GetUsername(ent->entity).c_str());
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushstring(L, API::Player::GetUsername(entity).c_str());
 
 			ent = nullptr;
 		}
@@ -760,7 +853,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			 API::Visual::ShowCursor(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			 API::Visual::ShowCursor(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -775,26 +872,30 @@ struct Player
 	int LoadURL(lua_State* L)
 	{
 		const int args = lua_gettop(L);
-		if (args >= 2)
+		if (args >= 3)
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
 			std::string appcode = "";
 			bool remote = false;
 
-			if (lua_isstring(L, 3))
-				appcode = lua_tostring(L, 3);
+			if (lua_isstring(L, 4))
+				appcode = lua_tostring(L, 4);
 
-			if (lua_isboolean(L, 4))
-				remote = lua_toboolean(L, 4);
+			if (lua_isboolean(L, 5))
+				remote = lua_toboolean(L, 5);
 
-			API::CEF::LoadURL(ent->entity, lua_tostring(L, 2), appcode, remote);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::CEF::LoadURL(entity, lua_tostring(L, 2), lua_tostring(L, 3), appcode, remote);
 
 			ent = nullptr;
 		}
 		else
 		{
-			API::Log::Warning("Player:LoadURL requires args (string url, OPTIONAL[string appcode = "", bool remote = false]).");
+			API::Log::Warning("Player:LoadURL requires args (string frame, string url, OPTIONAL[string appcode = "", bool remote = false]).");
 		}
 		lua_pop(L, args);
 		return 0;
@@ -803,17 +904,21 @@ struct Player
 	int JavaScriptCall(lua_State* L)
 	{
 		const int args = lua_gettop(L);
-		if (args == 2)
+		if (args == 3)
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::CEF::JavaScriptCall(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::CEF::ExecuteJavaScript(entity, lua_tostring(L, 2), lua_tostring(L, 3));
 
 			ent = nullptr;
 		}
 		else
 		{
-			API::Log::Warning("Player:JavaScriptCall requires args (string call).");
+			API::Log::Warning("Player:JavaScriptCall requires args (string frame, string call).");
 		}
 		lua_pop(L, args);
 		return 0;
@@ -827,7 +932,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Player::IsControllable(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushboolean(L, API::Player::IsControllable(entity));
 
 			ent = nullptr;
 		}
@@ -851,7 +960,11 @@ struct Player
 			if (lua_isboolean(L, 3))
 				frozen = lua_toboolean(L, 3);
 
-			API::Player::SetControllable(ent->entity, lua_toboolean(L, 2), frozen);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Player::SetControllable(entity, lua_toboolean(L, 2), frozen);
 
 			ent = nullptr;
 		}
@@ -871,7 +984,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushstring(L, API::Player::GetIP(ent->entity).c_str());
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushstring(L, API::Player::GetIP(entity).c_str());
 
 			ent = nullptr;
 		}
@@ -892,7 +1009,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushstring(L, API::Player::GetSecretKey(ent->entity).c_str());
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushstring(L, API::Player::GetSecretKey(entity).c_str());
 
 			ent = nullptr;
 		}
@@ -912,7 +1033,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Player::SetUsername(ent->entity, lua_tostring(L,2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Player::SetUsername(entity, lua_tostring(L,2));
 
 			ent = nullptr;
 		}
@@ -931,7 +1056,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Player::Kick(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Player::Kick(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -950,7 +1079,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Visual::ShowSubtitleToPlayer(ent->entity, lua_tostring(L, 2), lua_tointeger(L, 3), lua_toboolean(L, 4));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Visual::ShowSubtitleToPlayer(entity, lua_tostring(L, 2), lua_tointeger(L, 3), lua_toboolean(L, 4));
 
 			ent = nullptr;
 		}
@@ -973,7 +1106,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Player::GetSeat(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushinteger(L, API::Player::GetSeat(entity));
 
 			ent = nullptr;
 		}
@@ -993,7 +1130,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			
-			API::Player::GiveWeapon(ent->entity, lua_tostring(L, 2), luaL_optinteger(L, 3, 0));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Player::GiveWeapon(entity, lua_tostring(L, 2), luaL_optinteger(L, 3, 0));
 
 			ent = nullptr;
 		}
@@ -1012,7 +1153,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Player::RemoveWeapon(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Player::RemoveWeapon(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -1032,7 +1177,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushstring(L, API::Entity::GetNametag(ent->entity).c_str());
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushstring(L, API::Entity::GetNametag(entity).c_str());
 
 			ent = nullptr;
 		}
@@ -1051,7 +1200,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Entity::SetNametag(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetNametag(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -1071,7 +1224,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Entity::IsNametagVisible(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushboolean(L, API::Entity::IsNametagVisible(entity));
 
 			ent = nullptr;
 		}
@@ -1090,7 +1247,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Entity::SetNametagVisible(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetNametagVisible(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1110,7 +1271,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Entity::IsHealthbarVisible(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushboolean(L, API::Entity::IsHealthbarVisible(entity));
 
 			ent = nullptr;
 		}
@@ -1129,7 +1294,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Entity::SetHealthbarVisible(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetHealthbarVisible(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1149,7 +1318,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushnumber(L, API::Entity::GetNametagDistance(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushnumber(L, API::Entity::GetNametagDistance(entity));
 
 			ent = nullptr;
 		}
@@ -1167,7 +1340,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Entity::SetNametagDistance(ent->entity, lua_tonumber(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetNametagDistance(entity, lua_tonumber(L, 2));
 
 			ent = nullptr;
 		}
@@ -1187,7 +1364,11 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			Color color = API::Entity::GetNametagColor(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			Color color = API::Entity::GetNametagColor(entity);
 
 			lua_newtable(L);
 
@@ -1241,7 +1422,11 @@ struct Player
 			color.Alpha = lua_tointeger(L, -2);
 			lua_pop(L, 1);
 
-			API::Entity::SetNametagColor(ent->entity, color);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetNametagColor(entity, color);
 
 			ent = nullptr;
 		}
@@ -1260,7 +1445,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Blip::Create(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Blip::Create(entity);
 
 			ent = nullptr;
 		}
@@ -1282,7 +1471,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Blip::ShowToAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Blip::ShowToAll(entity);
 
 			ent = nullptr;
 		}
@@ -1301,7 +1494,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Blip::HideFromAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Blip::HideFromAll(entity);
 
 			ent = nullptr;
 		}
@@ -1320,7 +1517,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			const int color = API::Blip::GetColor(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			const int color = API::Blip::GetColor(entity);
 			lua_pop(L, args);
 
 			lua_pushinteger(L, color);
@@ -1343,7 +1544,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Blip::SetColor(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Blip::SetColor(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1362,7 +1567,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			const int sprite = API::Blip::GetSprite(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			const int sprite = API::Blip::GetSprite(entity);
 			lua_pop(L, args);
 
 			lua_pushinteger(L, sprite);
@@ -1385,7 +1594,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Blip::SetSprite(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Blip::SetSprite(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1404,7 +1617,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			const std::string text = API::Blip::GetText(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			const std::string text = API::Blip::GetText(entity);
 			lua_pop(L, args);
 
 			lua_pushstring(L, text.c_str());
@@ -1427,7 +1644,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Blip::SetText(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Blip::SetText(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -1446,7 +1667,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			const bool state = API::Blip::IsShortRanged(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			const bool state = API::Blip::IsShortRanged(entity);
 			lua_pop(L, args);
 
 			lua_pushboolean(L, state);
@@ -1469,7 +1694,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Blip::SetShortRanged(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Blip::SetShortRanged(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1488,7 +1717,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::World::SetGroundSnow(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::World::SetGroundSnowForPlayer(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1507,7 +1740,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::World::SetBlackout(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::World::SetBlackoutForPlayer(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1527,8 +1764,12 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
 			int ammo, clipAmmo;
-			API::Player::GetWeaponAmmo(ent->entity, lua_tostring(L, 2), &ammo, &clipAmmo);
+			API::Player::GetWeaponAmmo(entity, lua_tostring(L, 2), &ammo, &clipAmmo);
 
 			lua_pushinteger(L, ammo);
 			lua_pushinteger(L, clipAmmo);
@@ -1552,7 +1793,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Player::SetWeaponAmmo(ent->entity, lua_tostring(L, 2), lua_tointeger(L, 3), lua_tointeger(L, 4));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Player::SetWeaponAmmo(entity, lua_tostring(L, 2), lua_tointeger(L, 3), lua_tointeger(L, 4));
 
 			ent = nullptr;
 		}
@@ -1572,12 +1817,18 @@ struct Player
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			std::vector<std::string> weapons = API::Player::GetWeapons(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
 
-			if (!weapons.empty())
+			std::string * weapons = API::Player::GetWeapons(entity);
+
+			const int arraySize = (int)(sizeof(weapons) / sizeof(weapons[0]));
+
+			if (arraySize > 0)
 			{
 				lua_newtable(L);
-				for (unsigned int i = 0; i < weapons.size(); i++)
+				for (unsigned int i = 0; i < arraySize; i++)
 				{
 					lua_pushstring(L, weapons[i].c_str());
 				}
@@ -1605,7 +1856,11 @@ struct Player
 		{
 			Player* ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Player::EquipWeapon(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Player::EquipWeapon(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -1625,7 +1880,11 @@ struct Player
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Entity::GetHealth(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushinteger(L, API::Entity::GetHealth(entity));
 
 			ent = nullptr;
 		}
@@ -1645,7 +1904,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Entity::SetHealth(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetHealth(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1665,7 +1928,11 @@ struct Player
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Entity::GetArmour(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushinteger(L, API::Entity::GetArmour(entity));
 
 			ent = nullptr;
 		}
@@ -1685,7 +1952,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Entity::SetArmour(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::SetArmour(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -1704,7 +1975,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			lua_pushboolean(L, API::Visual::IsHudHidden(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushboolean(L, API::Visual::IsHudHidden(entity));
 
 			ent = nullptr;
 		}
@@ -1723,7 +1998,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Visual::DisplayHud(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Visual::DisplayHud(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1742,7 +2021,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			lua_pushboolean(L, API::Visual::IsRadarHidden(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushboolean(L, API::Visual::IsRadarHidden(entity));
 
 			ent = nullptr;
 		}
@@ -1761,7 +2044,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Visual::DisplayRadar(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Visual::DisplayRadar(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1780,7 +2067,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			lua_pushboolean(L, API::Visual::IsCashHidden(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushboolean(L, API::Visual::IsCashHidden(entity));
 
 			ent = nullptr;
 		}
@@ -1799,7 +2090,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Visual::DisplayCash(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Visual::DisplayCash(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1818,7 +2113,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			lua_pushboolean(L, API::Visual::IsAmmoHidden(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushboolean(L, API::Visual::IsAmmoHidden(entity));
 
 			ent = nullptr;
 		}
@@ -1837,7 +2136,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Visual::DisplayAmmo(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Visual::DisplayAmmo(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -1856,7 +2159,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Entity::Revive(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Entity::Revive(entity);
 
 			ent = nullptr;
 		}
@@ -1876,7 +2183,11 @@ struct Player
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Entity::IsAlive(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			lua_pushboolean(L, API::Entity::IsAlive(entity));
 
 			ent = nullptr;
 		}
@@ -1928,7 +2239,11 @@ struct Player
 				position.z = lua_tonumber(L, 4);
 			}
 
-			API::Camera::SetPosition(ent->entity, position);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Camera::SetPosition(entity, position);
 
 			ent = nullptr;
 		}
@@ -1982,7 +2297,11 @@ struct Player
 				rotation.z = lua_tonumber(L, 4);
 			}
 
-			API::Camera::SetRotation(ent->entity, rotation);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Camera::SetRotation(entity, rotation);
 
 			ent = nullptr;
 		}
@@ -2002,7 +2321,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 			
-			API::Camera::Reset(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Camera::Reset(entity);
 
 			ent = nullptr;
 		}
@@ -2022,7 +2345,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Camera::FirstPersonOnly(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Camera::FirstPersonOnly(entity);
 
 			ent = nullptr;
 		}
@@ -2042,7 +2369,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Camera::ThirdPersonOnly(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Camera::ThirdPersonOnly(entity);
 
 			ent = nullptr;
 		}
@@ -2064,7 +2395,11 @@ struct Player
 		{
 			Player *ent = luabridge::Userdata::get<Player>(L, 1, false);
 
-			API::Camera::Detach(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Player);
+
+			API::Camera::Detach(entity);
 
 			ent = nullptr;
 		}

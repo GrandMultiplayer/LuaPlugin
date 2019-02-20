@@ -22,9 +22,11 @@
     <Filter Include="Mysql\mysql\psi">
       <UniqueIdentifier>{b398559e-2d68-4e63-b810-dfb46bb27dac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SDK\API">
+      <UniqueIdentifier>{c7f99f03-ee3c-47f5-b675-a892edad3839}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="api.cpp" />
     <ClCompile Include="sdk\CVector2.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
@@ -135,23 +137,9 @@
     <ClCompile Include="LuaCheckpoint.cpp" />
     <ClCompile Include="LuaBlip.cpp" />
     <ClCompile Include="LuaPickup.cpp" />
+    <ClCompile Include="LuaMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sdk\APIEntity.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\APIServer.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\APIVehicle.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\APIVisual.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\APIWorld.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\CMaths.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -161,7 +149,6 @@
     <ClInclude Include="sdk\CVector4.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="api.h" />
     <ClInclude Include="LuaEntity.h" />
     <ClInclude Include="LuaServer.h" />
     <ClInclude Include="LuaVehicle.h" />
@@ -216,19 +203,7 @@
     <ClInclude Include="LuaBridge\detail\Userdata.h">
       <Filter>LuaBridge\detail</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\APINpc.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\APIObject.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\APIPlayer.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\util.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\APICheckpoint.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="sdk\Structs.h">
@@ -240,9 +215,6 @@
     <ClInclude Include="LuaPlayer.h" />
     <ClInclude Include="LuaVisual.h" />
     <ClInclude Include="LuaWorld.h" />
-    <ClInclude Include="sdk\APICef.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\CVector2.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -495,22 +467,94 @@
       <Filter>inc_lua</Filter>
     </ClInclude>
     <ClInclude Include="LuaTimer.h" />
-    <ClInclude Include="sdk\APIBlip.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="LuaBlip.h" />
     <ClInclude Include="LuaEvents.h" />
     <ClInclude Include="Timers.h" />
     <ClInclude Include="LuaVector3.h" />
     <ClInclude Include="Events.h" />
-    <ClInclude Include="sdk\APILog.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\APIPickup.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="LuaPickup.h" />
-    <ClInclude Include="sdk\APICamera.h">
+    <ClInclude Include="sdk\API\APIBlip.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APICamera.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APICef.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APICheckpoint.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APIEntity.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APILog.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APINpc.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APIObject.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APIPickup.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APIPlayer.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APIServer.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APIVehicle.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APIVisual.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\API\APIWorld.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\api.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Blip.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Checkpoint.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Entity.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\GrandM.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\GUI.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\NPC.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Object.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Ped.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Pickup.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Player.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Transform.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Vehicle.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\Weapon.h">
       <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>

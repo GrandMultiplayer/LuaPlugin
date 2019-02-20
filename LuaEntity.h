@@ -8,49 +8,51 @@ public:
 		const int args = lua_gettop(L);
 		if (args == 1)
 		{
-			std::vector<int> entities = API::Entity::GetEntities(lua_tointeger(L,1));
+			Objects::Entity * entities = API::Entity::GetEntities(lua_tointeger(L,1));
 			lua_pop(L, args);
-			
-			lua_createtable(L, entities.size(), 0);
 
-			for (unsigned int i = 0; i < entities.size(); i++)
+			const int arraySize = (int)(sizeof(entities) / sizeof(entities[0]));
+			
+			lua_createtable(L, arraySize, 0);
+
+			for (unsigned int i = 0; i < arraySize; i++)
 			{
-				const int type = API::Entity::GetType(entities[i]);
-				switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+				switch (entities[i].GetType()) // (Types are, Player = 0, NPC, Vehicle, Object, Checkpoint, Pickup, Blip)
 				{
 				case 0: {
 					Player ent;
-					ent.entity = entities[i];
-					push(L, ent);
-					break;
-				}
-				case 1: {
-					Vehicle ent;
-					ent.entity = entities[i];
+					ent.entity = entities[i].GetID();
 					push(L, ent);
 					break;
 				}
 				case 2: {
-					Object ent;
-					ent.entity = entities[i];
+					Vehicle ent;
+					ent.entity = entities[i].GetID();
 					push(L, ent);
 					break;
 				}
 				case 3: {
+					Object ent;
+					ent.entity = entities[i].GetID();
+					push(L, ent);
+					break;
+				}
+				case 1: {
 					NPC ent;
-					ent.entity = entities[i];
+					ent.entity = entities[i].GetID();
 					push(L, ent);
 					break;
 				}
 				case 4: {
 					Checkpoint ent;
-					ent.entity = entities[i];
+					ent.entity = entities[i].GetID();
 					push(L, ent);
 					break;
 				}
-				case 5: {
+				//5 is pickup.
+				case 6: {
 					Blip ent;
-					ent.entity = entities[i];
+					ent.entity = entities[i].GetID();
 					push(L, ent);
 					break;
 				}

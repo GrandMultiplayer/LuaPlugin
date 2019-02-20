@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="api.cpp" />
+    <ClCompile Include="LuaMain.cpp" />
     <ClCompile Include="inc_lua\lapi.c" />
     <ClCompile Include="inc_lua\lauxlib.c" />
     <ClCompile Include="inc_lua\lbaselib.c" />
@@ -64,7 +64,6 @@
     <ClCompile Include="sdk\Quaternion.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="api.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="inc_lua\lapi.h" />
     <ClInclude Include="inc_lua\lauxlib.h" />
@@ -179,28 +178,42 @@
     <ClInclude Include="Mysql\sslopt-longopts.h" />
     <ClInclude Include="Mysql\sslopt-vars.h" />
     <ClInclude Include="Mysql\typelib.h" />
-    <ClInclude Include="sdk\APIBlip.h" />
-    <ClInclude Include="sdk\APICamera.h" />
-    <ClInclude Include="sdk\APICef.h" />
-    <ClInclude Include="sdk\APICheckpoint.h" />
-    <ClInclude Include="sdk\APIEntity.h" />
-    <ClInclude Include="sdk\APILog.h" />
-    <ClInclude Include="sdk\APINpc.h" />
-    <ClInclude Include="sdk\APIObject.h" />
-    <ClInclude Include="sdk\APIPickup.h" />
-    <ClInclude Include="sdk\APIPlayer.h" />
-    <ClInclude Include="sdk\APIServer.h" />
-    <ClInclude Include="sdk\APIVehicle.h" />
-    <ClInclude Include="sdk\APIVisual.h" />
-    <ClInclude Include="sdk\APIWorld.h" />
+    <ClInclude Include="sdk\api.h" />
+    <ClInclude Include="sdk\API\APIBlip.h" />
+    <ClInclude Include="sdk\API\APICamera.h" />
+    <ClInclude Include="sdk\API\APICef.h" />
+    <ClInclude Include="sdk\API\APICheckpoint.h" />
+    <ClInclude Include="sdk\API\APIEntity.h" />
+    <ClInclude Include="sdk\API\APILog.h" />
+    <ClInclude Include="sdk\API\APINpc.h" />
+    <ClInclude Include="sdk\API\APIObject.h" />
+    <ClInclude Include="sdk\API\APIPickup.h" />
+    <ClInclude Include="sdk\API\APIPlayer.h" />
+    <ClInclude Include="sdk\API\APIServer.h" />
+    <ClInclude Include="sdk\API\APIVehicle.h" />
+    <ClInclude Include="sdk\API\APIVisual.h" />
+    <ClInclude Include="sdk\API\APIWorld.h" />
+    <ClInclude Include="sdk\Blip.h" />
+    <ClInclude Include="sdk\Checkpoint.h" />
     <ClInclude Include="sdk\CMaths.h" />
     <ClInclude Include="sdk\CVector2.h" />
     <ClInclude Include="sdk\CVector3.h" />
     <ClInclude Include="sdk\CVector4.h" />
+    <ClInclude Include="sdk\Entity.h" />
+    <ClInclude Include="sdk\GrandM.h" />
+    <ClInclude Include="sdk\GUI.h" />
+    <ClInclude Include="sdk\NPC.h" />
+    <ClInclude Include="sdk\Object.h" />
+    <ClInclude Include="sdk\Ped.h" />
+    <ClInclude Include="sdk\Pickup.h" />
     <ClInclude Include="sdk\Plane.h" />
+    <ClInclude Include="sdk\Player.h" />
     <ClInclude Include="sdk\Quaternion.h" />
     <ClInclude Include="sdk\Structs.h" />
+    <ClInclude Include="sdk\Transform.h" />
     <ClInclude Include="sdk\util.h" />
+    <ClInclude Include="sdk\Vehicle.h" />
+    <ClInclude Include="sdk\Weapon.h" />
     <ClInclude Include="Timers.h" />
   </ItemGroup>
   <ItemGroup>
