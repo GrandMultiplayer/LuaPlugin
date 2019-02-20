@@ -81,11 +81,15 @@ struct Object
 			}
 
 			bool dynamic = lua_toboolean(L, 5);
+
+			Objects::Entity entity;
 			
 			if (lua_isnumber(L, 2))
-				ent->entity = API::Object::Create(hash, poss, rott, dynamic);
+				entity = API::Object::Create(hash, poss, rott, dynamic);
 			else
-				ent->entity = API::Object::Create(model, poss, rott, dynamic);
+				entity = API::Object::Create(model, poss, rott, dynamic);
+
+			ent->entity = entity.GetID();
 
 			ent = nullptr;
 		}
@@ -103,8 +107,13 @@ struct Object
 		if (args == 1)
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
-			API::Entity::Destroy(ent->entity);
-			ent->entity = -1;
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Entity::Destroy(entity);
+
 			ent = nullptr;
 		}
 		else
@@ -123,7 +132,11 @@ struct Object
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 poss = API::Entity::GetPosition(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			CVector3 poss = API::Entity::GetPosition(entity);
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -190,7 +203,12 @@ struct Object
 				poss.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetPosition(ent->entity, poss);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Entity::SetPosition(entity, poss);
+
 			ent = nullptr;
 		}
 		else
@@ -209,7 +227,11 @@ struct Object
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 rot = API::Entity::GetRotation(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			CVector3 rot = API::Entity::GetRotation(entity);
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -276,7 +298,11 @@ struct Object
 				rott.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetRotation(ent->entity, rott);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Entity::SetRotation(entity, rott);
 			ent = nullptr;
 		}
 		else
@@ -295,7 +321,11 @@ struct Object
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 			lua_pop(L, args);
 
-			const float distance = API::Entity::GetViewDistance(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			const float distance = API::Entity::GetViewDistance(entity);
 
 			lua_pushnumber(L, distance);
 
@@ -319,7 +349,11 @@ struct Object
 
 			const float distance = lua_tonumber(L, 2);
 
-			API::Entity::SetViewDistance(ent->entity, distance);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Entity::SetViewDistance(entity, distance);
 			ent = nullptr;
 		}
 		else
@@ -338,7 +372,11 @@ struct Object
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 			lua_pop(L, args);
 
-			const int texture = API::Object::GetTextureVariation(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			const int texture = API::Object::GetTextureVariation(entity);
 
 			lua_pushinteger(L, texture);
 
@@ -360,7 +398,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			API::Object::SetTextureVariation(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Object::SetTextureVariation(entity, lua_tointeger(L, 2));
 			ent = nullptr;
 		}
 		else
@@ -378,7 +420,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			API::Blip::Create(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Blip::Create(entity);
 
 			ent = nullptr;
 		}
@@ -401,7 +447,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			API::Blip::ShowToAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Blip::ShowToAll(entity);
 
 			ent = nullptr;
 		}
@@ -420,7 +470,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			API::Blip::HideFromAll(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Blip::HideFromAll(entity);
 
 			ent = nullptr;
 		}
@@ -439,7 +493,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			const int color = API::Blip::GetColor(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			const int color = API::Blip::GetColor(entity);
 			lua_pop(L, args);
 
 			lua_pushinteger(L, color);
@@ -461,7 +519,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			API::Blip::SetColor(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Blip::SetColor(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -480,7 +542,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			const int sprite = API::Blip::GetSprite(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			const int sprite = API::Blip::GetSprite(entity);
 			lua_pop(L, args);
 
 			lua_pushinteger(L, sprite);
@@ -502,7 +568,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			API::Blip::SetSprite(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Blip::SetSprite(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -520,9 +590,13 @@ struct Object
 		if (args == 1)
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
-
-			const std::string text = API::Blip::GetText(ent->entity);
 			lua_pop(L, args);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			const std::string text = API::Blip::GetText(entity);
 
 			lua_pushstring(L, text.c_str());
 
@@ -543,7 +617,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			API::Blip::SetText(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Blip::SetText(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -563,7 +641,11 @@ struct Object
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 			lua_pop(L, args);
 
-			const bool state = API::Blip::IsShortRanged(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			const bool state = API::Blip::IsShortRanged(entity);
 
 			lua_pushboolean(L, state);
 
@@ -585,7 +667,11 @@ struct Object
 		{
 			Object* ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			API::Blip::SetShortRanged(ent->entity, lua_toboolean(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Blip::SetShortRanged(entity, lua_toboolean(L, 2));
 
 			ent = nullptr;
 		}
@@ -605,7 +691,11 @@ struct Object
 			Object *ent = luabridge::Userdata::get<Object>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushinteger(L, API::Entity::GetHealth(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			lua_pushinteger(L, API::Entity::GetHealth(entity));
 
 			ent = nullptr;
 		}
@@ -625,7 +715,11 @@ struct Object
 		{
 			Object *ent = luabridge::Userdata::get<Object>(L, 1, false);
 
-			API::Entity::SetHealth(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			API::Entity::SetHealth(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
@@ -645,7 +739,11 @@ struct Object
 			Object *ent = luabridge::Userdata::get<Object>(L, 1, false);
 			lua_pop(L, args);
 
-			lua_pushboolean(L, API::Entity::IsAlive(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Object);
+
+			lua_pushboolean(L, API::Entity::IsAlive(entity));
 
 			ent = nullptr;
 		}
