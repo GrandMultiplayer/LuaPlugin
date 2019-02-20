@@ -48,9 +48,10 @@ struct Pickup
 				poss.z = lua_tonumber(L, -2);
 				lua_pop(L, 1);
 			}
-
 			
-			ent->entity = API::Pickup::Create(poss, luaL_optstring(L, 3, "prop_ld_health_pack"));
+			Objects::Entity entity = API::Pickup::Create(poss, luaL_optstring(L, 3, "prop_ld_health_pack"));
+
+			ent->entity = entity.GetID();
 
 			ent = nullptr;
 		}
@@ -68,7 +69,13 @@ struct Pickup
 		if (args == 1)
 		{
 			Pickup* ent = luabridge::Userdata::get<Pickup>(L, 1, false);
-			API::Entity::Destroy(ent->entity);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Pickup);
+
+			API::Entity::Destroy(entity);
+
 			ent->entity = -1;
 			ent = nullptr;
 		}
@@ -86,7 +93,14 @@ struct Pickup
 		if (args == 1)
 		{
 			Pickup* ent = luabridge::Userdata::get<Pickup>(L, 1, false);
-			API::Pickup::ShowToAll(ent->entity);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Pickup);
+
+			Objects::Entity nill;
+
+			API::Pickup::Show(entity, nill);
 			
 			ent = nullptr;
 		}
@@ -106,7 +120,14 @@ struct Pickup
 		if (args == 1)
 		{
 			Pickup* ent = luabridge::Userdata::get<Pickup>(L, 1, false);
-			API::Pickup::HideFromAll(ent->entity);
+
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Pickup);
+
+			Objects::Entity nill;
+
+			API::Pickup::Hide(entity, nill);
 
 			ent = nullptr;
 		}
@@ -128,7 +149,11 @@ struct Pickup
 			Pickup* ent = luabridge::Userdata::get<Pickup>(L, 1, false);
 			lua_pop(L, args);
 
-			CVector3 poss = API::Entity::GetPosition(ent->entity);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Pickup);
+
+			CVector3 poss = API::Entity::GetPosition(entity);
 			/*Vec pos(poss.x, poss.y, poss.z);
 			lua_pushlightuserdata(L, &pos);*/
 			lua_newtable(L);
@@ -195,7 +220,11 @@ struct Pickup
 				poss.x = lua_tonumber(L, 4);
 			}
 
-			API::Entity::SetPosition(ent->entity, poss);
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Pickup);
+
+			API::Entity::SetPosition(entity, poss);
 			ent = nullptr;
 		}
 		else
@@ -213,7 +242,11 @@ struct Pickup
 		{
 			Pickup* ent = luabridge::Userdata::get<Pickup>(L, 1, false);
 
-			lua_pushstring(L, API::Pickup::GetModel(ent->entity).c_str());
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Pickup);
+
+			lua_pushstring(L, API::Pickup::GetModel(entity).c_str());
 
 			ent = nullptr;
 		}
@@ -232,7 +265,11 @@ struct Pickup
 		{
 			Pickup* ent = luabridge::Userdata::get<Pickup>(L, 1, false);
 
-			API::Pickup::SetModel(ent->entity, lua_tostring(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Pickup);
+
+			API::Pickup::SetModel(entity, lua_tostring(L, 2));
 
 			ent = nullptr;
 		}
@@ -251,7 +288,11 @@ struct Pickup
 		{
 			Pickup* ent = luabridge::Userdata::get<Pickup>(L, 1, false);
 
-			lua_pushinteger(L, API::Pickup::GetRespawnDelay(ent->entity));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Pickup);
+
+			lua_pushinteger(L, API::Pickup::GetRespawnDelay(entity));
 
 			ent = nullptr;
 		}
@@ -270,7 +311,11 @@ struct Pickup
 		{
 			Pickup* ent = luabridge::Userdata::get<Pickup>(L, 1, false);
 
-			API::Pickup::SetRespawnDelay(ent->entity, lua_tointeger(L, 2));
+			Objects::Entity entity;
+			entity.SetID(ent->entity);
+			entity.SetType(GrandM::EntityType::Pickup);
+
+			API::Pickup::SetRespawnDelay(entity, lua_tointeger(L, 2));
 
 			ent = nullptr;
 		}
