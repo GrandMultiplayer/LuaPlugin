@@ -1,11 +1,11 @@
-//#include <iostream>
-//#include <sstream>
-//#include <limits>
-//#include <stdexcept>
-//#include <cstdint>
+#include <iostream>
+#include <sstream>
+#include <limits>
+#include <stdexcept>
+#include <cstdint>
+#include <atomic>
 #include <map>
 #include <chrono>
-//#include <atomic>
 
 #include "sdk/GrandM.h"
 
@@ -632,7 +632,7 @@ extern "C" DLL_PUBLIC bool API_OnTick(void)
 	return true;
 }
 
-extern "C" DLL_PUBLIC bool API_OnPlayerConnecting(const std::string playerUid, const std::string playername)
+extern "C" DLL_PUBLIC bool API_OnPlayerConnecting(Objects::Entity player)
 {
 	int result = 1;
 
@@ -644,10 +644,11 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnecting(const std::string playerUid, c
 			lua_rawgeti(stateLua, LUA_REGISTRYINDEX, events[i].functionKey);
 			if (lua_isfunction(stateLua, -1))
 			{
-				lua_pushstring(stateLua, playerUid.c_str());
-				lua_pushstring(stateLua, playername.c_str());
+				Player ent;
+				ent.entity = player.GetID();
+				push(stateLua, ent);
 
-				int error = lua_pcall(stateLua, 2, 1, 0);
+				int error = lua_pcall(stateLua, 1, 1, 0);
 				if (error != 0)
 				{
 					std::stringstream str;
@@ -666,10 +667,11 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnecting(const std::string playerUid, c
 	lua_getglobal(stateLua, "OnPlayerConnecting");
 	if (lua_isfunction(stateLua, -1))
 	{
-		lua_pushstring(stateLua, playerUid.c_str());
-		lua_pushstring(stateLua, playername.c_str());
+		Player ent;
+		ent.entity = player.GetID();
+		push(stateLua, ent);
 
-		int error = lua_pcall(stateLua, 2, 1, 0);
+		int error = lua_pcall(stateLua, 1, 1, 0);
 		if (error != 0)
 		{
 			API::Log::Error("Error occured when executing OnPlayerConnecting");
@@ -686,7 +688,7 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnecting(const std::string playerUid, c
 	return result;
 }
 
-extern "C" DLL_PUBLIC bool API_OnPlayerConnected(int entity)
+extern "C" DLL_PUBLIC bool API_OnPlayerConnected(Objects::Entity player)
 {
 	int result = 1;
 
@@ -699,7 +701,7 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnected(int entity)
 			if (lua_isfunction(stateLua, -1))
 			{
 				Player ent;
-				ent.entity = entity;
+				ent.entity = player.GetID();
 				push(stateLua, ent);
 
 				int error = lua_pcall(stateLua, 1, 1, 0);
@@ -722,7 +724,7 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnected(int entity)
 	if (lua_isfunction(stateLua, -1))
 	{
 		Player ent;
-		ent.entity = entity;
+		ent.entity = player.GetID();
 		push(stateLua, ent);
 
 		int error = lua_pcall(stateLua, 1, 1, 0);
@@ -743,7 +745,7 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnected(int entity)
 }
 
 /// <param name="reason">The reason the player disconnected,  0 = Left, 1 = Timeout, 2 = Kicked, 3 = Banned</param>
-extern "C" DLL_PUBLIC void API_OnPlayerDisconnected(int entity, int reason)
+extern "C" DLL_PUBLIC void API_OnPlayerDisconnected(Objects::Entity player, int reason)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -754,7 +756,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerDisconnected(int entity, int reason)
 			if (lua_isfunction(stateLua, -1))
 			{
 				Player ent;
-				ent.entity = entity;
+				ent.entity = player.GetID();
 				push(stateLua, ent);
 
 				lua_pushinteger(stateLua, reason);
@@ -776,7 +778,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerDisconnected(int entity, int reason)
 	if (lua_isfunction(stateLua, -1))
 	{
 		Player ent;
-		ent.entity = entity;
+		ent.entity = player.GetID();
 		push(stateLua, ent);
 
 		lua_pushinteger(stateLua, reason);
@@ -793,7 +795,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerDisconnected(int entity, int reason)
 	lua_pop(stateLua, -1);
 }
 
-extern "C" DLL_PUBLIC void API_OnEntityEnterCheckpoint(int checkpoint, int entity)
+extern "C" DLL_PUBLIC void API_OnEntityEnterCheckpoint(Objects::Entity checkpoint, Objects::Entity entity)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -804,33 +806,32 @@ extern "C" DLL_PUBLIC void API_OnEntityEnterCheckpoint(int checkpoint, int entit
 			if (lua_isfunction(stateLua, -1))
 			{
 				Checkpoint cp;
-				cp.entity = checkpoint;
+				cp.entity = checkpoint.GetID();
 				push(stateLua, cp);
 
-				const int type = API::Entity::GetType(entity);
-				switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+				switch (entity.GetType())
 				{
-				case 0: {
+				case GrandM::Player: {
 					Player ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 1: {
+				case GrandM::Vehicle: {
 					Vehicle ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 2: {
+				case GrandM::Object: {
 					Object ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 3: {
+				case GrandM::NPC: {
 					NPC ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
@@ -857,33 +858,32 @@ extern "C" DLL_PUBLIC void API_OnEntityEnterCheckpoint(int checkpoint, int entit
 	if (lua_isfunction(stateLua, -1))
 	{
 		Checkpoint cp;
-		cp.entity = checkpoint;
+		cp.entity = checkpoint.GetID();
 		push(stateLua, cp);
 
-		const int type = API::Entity::GetType(entity);
-		switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+		switch (entity.GetType())
 		{
-		case 0: {
+		case GrandM::Player: {
 			Player ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break; 
 		}
-		case 1: {
+		case GrandM::Vehicle: {
 			Vehicle ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 2: {
+		case GrandM::Object: {
 			Object ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 3: {
+		case GrandM::NPC: {
 			NPC ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
@@ -904,7 +904,7 @@ extern "C" DLL_PUBLIC void API_OnEntityEnterCheckpoint(int checkpoint, int entit
 	lua_pop(stateLua, -1);
 }
 
-extern "C" DLL_PUBLIC void API_OnEntityExitCheckpoint(int checkpoint, int entity)
+extern "C" DLL_PUBLIC void API_OnEntityExitCheckpoint(Objects::Entity checkpoint, Objects::Entity entity)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -915,33 +915,32 @@ extern "C" DLL_PUBLIC void API_OnEntityExitCheckpoint(int checkpoint, int entity
 			if (lua_isfunction(stateLua, -1))
 			{
 				Checkpoint cp;
-				cp.entity = checkpoint;
+				cp.entity = checkpoint.GetID();
 				push(stateLua, cp);
 
-				const int type = API::Entity::GetType(entity);
-				switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+				switch (entity.GetType())
 				{
-				case 0: {
+				case GrandM::Player: {
 					Player ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 1: {
+				case GrandM::Vehicle: {
 					Vehicle ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 2: {
+				case GrandM::Object: {
 					Object ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 3: {
+				case GrandM::NPC: {
 					NPC ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
@@ -967,33 +966,32 @@ extern "C" DLL_PUBLIC void API_OnEntityExitCheckpoint(int checkpoint, int entity
 	if (lua_isfunction(stateLua, -1))
 	{
 		Checkpoint cp;
-		cp.entity = checkpoint;
+		cp.entity = checkpoint.GetID();
 		push(stateLua, cp);
 
-		const int type = API::Entity::GetType(entity);
-		switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+		switch (entity.GetType())
 		{
-		case 0: {
+		case GrandM::Player: {
 			Player ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 1: {
+		case GrandM::Vehicle: {
 			Vehicle ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 2: {
+		case GrandM::Object: {
 			Object ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 3: {
+		case GrandM::NPC: {
 			NPC ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
@@ -1014,7 +1012,7 @@ extern "C" DLL_PUBLIC void API_OnEntityExitCheckpoint(int checkpoint, int entity
 	lua_pop(stateLua, -1);
 }
 
-extern "C" DLL_PUBLIC void API_OnPlayerCommand(const int entity, const std::string message)
+extern "C" DLL_PUBLIC void API_OnPlayerCommand(Objects::Entity player, const std::string message)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1025,7 +1023,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerCommand(const int entity, const std::stri
 			if (lua_isfunction(stateLua, -1))
 			{
 				Player ent;
-				ent.entity = entity;
+				ent.entity = player.GetID();
 				push(stateLua, ent);
 
 				lua_pushstring(stateLua, message.c_str());
@@ -1047,7 +1045,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerCommand(const int entity, const std::stri
 	if (lua_isfunction(stateLua, -1))
 	{
 		Player ent;
-		ent.entity = entity;
+		ent.entity = player.GetID();
 		push(stateLua, ent);
 
 		lua_pushstring(stateLua, message.c_str());
@@ -1064,7 +1062,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerCommand(const int entity, const std::stri
 	lua_pop(stateLua, -1);
 }
 
-extern "C" DLL_PUBLIC void API_OnPlayerMessage(const int entity, const std::string message)
+extern "C" DLL_PUBLIC void API_OnPlayerMessage(Objects::Entity player, const std::string message)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1075,7 +1073,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerMessage(const int entity, const std::stri
 			if (lua_isfunction(stateLua, -1))
 			{
 				Player ent;
-				ent.entity = entity;
+				ent.entity = player.GetID();
 				push(stateLua, ent);
 
 				lua_pushstring(stateLua, message.c_str());
@@ -1097,7 +1095,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerMessage(const int entity, const std::stri
 	if (lua_isfunction(stateLua, -1))
 	{
 		Player ent;
-		ent.entity = entity;
+		ent.entity = player.GetID();
 		push(stateLua, ent);
 
 		lua_pushstring(stateLua, message.c_str());
@@ -1116,7 +1114,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerMessage(const int entity, const std::stri
 }
 
 // Called whern a player has just shot
-extern "C" DLL_PUBLIC void API_OnPlayerShot(const int entity, const std::string weapon)
+extern "C" DLL_PUBLIC void API_OnPlayerShot(Objects::Entity player, const std::string weapon)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1127,7 +1125,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerShot(const int entity, const std::string 
 			if (lua_isfunction(stateLua, -1))
 			{
 				Player ent;
-				ent.entity = entity;
+				ent.entity = player.GetID();
 				push(stateLua, ent);
 
 				lua_pushstring(stateLua, weapon.c_str());
@@ -1149,7 +1147,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerShot(const int entity, const std::string 
 	if (lua_isfunction(stateLua, -1))
 	{
 		Player ent;
-		ent.entity = entity;
+		ent.entity = player.GetID();
 		push(stateLua, ent);
 
 		lua_pushstring(stateLua, weapon.c_str());
@@ -1168,7 +1166,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerShot(const int entity, const std::string 
 }
 
 // Called whern a entity has taken damage
-extern "C" DLL_PUBLIC const bool API_OnEntityDamage(const int entity, const int damage, const int attacker, const std::string weapon)
+extern "C" DLL_PUBLIC const bool API_OnEntityDamage(Objects::Entity entity, const int damage, Objects::Entity attacker, const std::string weapon)
 {
 	int result = 1;
 
@@ -1180,30 +1178,29 @@ extern "C" DLL_PUBLIC const bool API_OnEntityDamage(const int entity, const int 
 			lua_rawgeti(stateLua, LUA_REGISTRYINDEX, events[i].functionKey);
 			if (lua_isfunction(stateLua, -1))
 			{
-				int type = API::Entity::GetType(entity);
-				switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+				switch (entity.GetType())
 				{
-				case 0: {
+				case GrandM::Player: {
 					Player ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 1: {
+				case GrandM::Vehicle: {
 					Vehicle ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 2: {
+				case GrandM::Object: {
 					Object ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 3: {
+				case GrandM::NPC: {
 					NPC ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
@@ -1214,18 +1211,18 @@ extern "C" DLL_PUBLIC const bool API_OnEntityDamage(const int entity, const int 
 
 				lua_pushinteger(stateLua, damage);
 				
-				type = API::Entity::GetType(attacker);
-				switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+				
+				switch (attacker.GetType())
 				{
-				case 0: {
+				case GrandM::Player: {
 					Player ent;
-					ent.entity = attacker;
+					ent.entity = attacker.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 3: {
+				case GrandM::NPC: {
 					NPC ent;
-					ent.entity = attacker;
+					ent.entity = attacker.GetID();
 					push(stateLua, ent);
 					break;
 				}
@@ -1255,30 +1252,29 @@ extern "C" DLL_PUBLIC const bool API_OnEntityDamage(const int entity, const int 
 	lua_getglobal(stateLua, "OnEntityDamage");
 	if (lua_isfunction(stateLua, -1))
 	{
-		int type = API::Entity::GetType(entity);
-		switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+		switch (entity.GetType())
 		{
-		case 0: {
+		case GrandM::Player: {
 			Player ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 1: {
+		case GrandM::Vehicle: {
 			Vehicle ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 2: {
+		case GrandM::Object: {
 			Object ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 3: {
+		case GrandM::NPC: {
 			NPC ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
@@ -1289,18 +1285,17 @@ extern "C" DLL_PUBLIC const bool API_OnEntityDamage(const int entity, const int 
 
 		lua_pushinteger(stateLua, damage);
 
-		type = API::Entity::GetType(attacker);
-		switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+		switch (attacker.GetType())
 		{
-		case 0: {
+		case GrandM::Player: {
 			Player ent;
-			ent.entity = attacker;
+			ent.entity = attacker.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 3: {
+		case GrandM::NPC: {
 			NPC ent;
-			ent.entity = attacker;
+			ent.entity = attacker.GetID();
 			push(stateLua, ent);
 			break;
 		}
@@ -1329,7 +1324,7 @@ extern "C" DLL_PUBLIC const bool API_OnEntityDamage(const int entity, const int 
 }
 
 // Called after a player has shot and their projectile hits something
-extern "C" DLL_PUBLIC void API_OnProjectileImpact(const int player, const std::string weapon, CVector3 position, const int entity, const int bone)
+extern "C" DLL_PUBLIC void API_OnProjectileImpact(Objects::Entity player, const std::string weapon, CVector3 position, Objects::Entity entity, const int bone)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1340,7 +1335,7 @@ extern "C" DLL_PUBLIC void API_OnProjectileImpact(const int player, const std::s
 			if (lua_isfunction(stateLua, -1))
 			{
 				Player p;
-				p.entity = player;
+				p.entity = player.GetID();
 				push(stateLua, p);
 
 				lua_pushstring(stateLua, weapon.c_str());
@@ -1353,42 +1348,41 @@ extern "C" DLL_PUBLIC void API_OnProjectileImpact(const int player, const std::s
 				lua_pushinteger(stateLua, position.z);
 				lua_setfield(stateLua, -2, "z");
 
-				const int type = API::Entity::GetType(entity);
-				switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+				switch (entity.GetType())
 				{
-				case 0: {
+				case GrandM::Player: {
 					Player ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 1: {
+				case GrandM::Vehicle: {
 					Vehicle ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 2: {
+				case GrandM::Object: {
 					Object ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 3: {
+				case GrandM::NPC: {
 					NPC ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 4: {
+				case GrandM::Checkpoint: {
 					Checkpoint ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 5: {
+				case GrandM::Blip: {
 					Blip ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
@@ -1416,7 +1410,7 @@ extern "C" DLL_PUBLIC void API_OnProjectileImpact(const int player, const std::s
 	if (lua_isfunction(stateLua, -1))
 	{
 		Player p;
-		p.entity = player;
+		p.entity = player.GetID();
 		push(stateLua, p);
 
 		lua_pushstring(stateLua, weapon.c_str());
@@ -1429,42 +1423,41 @@ extern "C" DLL_PUBLIC void API_OnProjectileImpact(const int player, const std::s
 		lua_pushinteger(stateLua, position.z);
 		lua_setfield(stateLua, -2, "z");
 
-		const int type = API::Entity::GetType(entity);
-		switch (type) // (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4, Blip = 5)
+		switch (entity.GetType())
 		{
-		case 0: {
+		case GrandM::Player: {
 			Player ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 1: {
+		case GrandM::Vehicle: {
 			Vehicle ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 2: {
+		case GrandM::Object: {
 			Object ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 3: {
+		case GrandM::NPC: {
 			NPC ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 4: {
+		case GrandM::Checkpoint: {
 			Checkpoint ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 5: {
+		case GrandM::Blip: {
 			Blip ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
@@ -1488,7 +1481,7 @@ extern "C" DLL_PUBLIC void API_OnProjectileImpact(const int player, const std::s
 }
 
 // Called when a player picks up and pickup
-extern "C" DLL_PUBLIC void API_OnPlayerPickup(const int player, const int pickup)
+extern "C" DLL_PUBLIC void API_OnPlayerPickup(Objects::Entity player, Objects::Entity pickup)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1499,11 +1492,11 @@ extern "C" DLL_PUBLIC void API_OnPlayerPickup(const int player, const int pickup
 			if (lua_isfunction(stateLua, -1))
 			{
 				Player ent;
-				ent.entity = player;
+				ent.entity = player.GetID();
 				push(stateLua, ent);
 
 				Pickup pick;
-				pick.entity = pickup;
+				pick.entity = pickup.GetID();
 				push(stateLua, pick);
 
 				int error = lua_pcall(stateLua, 2, 0, 0);
@@ -1523,11 +1516,11 @@ extern "C" DLL_PUBLIC void API_OnPlayerPickup(const int player, const int pickup
 	if (lua_isfunction(stateLua, -1))
 	{
 		Player ent;
-		ent.entity = player;
+		ent.entity = player.GetID();
 		push(stateLua, ent);
 
 		Pickup pick;
-		pick.entity = pickup;
+		pick.entity = pickup.GetID();
 		push(stateLua, pick);
 
 		int error = lua_pcall(stateLua, 2, 0, 0);
@@ -1544,7 +1537,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerPickup(const int player, const int pickup
 }
 
 // When a CEF page has finished loading
-extern "C" DLL_PUBLIC void API_OnCefFinishLoad(const int player)
+extern "C" DLL_PUBLIC void API_OnCefFinishLoad(Objects::Entity player)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1555,7 +1548,7 @@ extern "C" DLL_PUBLIC void API_OnCefFinishLoad(const int player)
 			if (lua_isfunction(stateLua, -1))
 			{
 				Player ent;
-				ent.entity = player;
+				ent.entity = player.GetID();
 				push(stateLua, ent);
 
 				int error = lua_pcall(stateLua, 1, 0, 0);
@@ -1575,7 +1568,7 @@ extern "C" DLL_PUBLIC void API_OnCefFinishLoad(const int player)
 	if (lua_isfunction(stateLua, -1))
 	{
 		Player ent;
-		ent.entity = player;
+		ent.entity = player.GetID();
 		push(stateLua, ent);
 
 		int error = lua_pcall(stateLua, 1, 0, 0);
@@ -1592,7 +1585,7 @@ extern "C" DLL_PUBLIC void API_OnCefFinishLoad(const int player)
 }
 
 // When a CEF page sends data
-extern "C" DLL_PUBLIC void API_OnCefSendData(const int player, const std::string data)
+extern "C" DLL_PUBLIC void API_OnCefSendData(Objects::Entity player, const std::string data)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1603,7 +1596,7 @@ extern "C" DLL_PUBLIC void API_OnCefSendData(const int player, const std::string
 			if (lua_isfunction(stateLua, -1))
 			{
 				Player ent;
-				ent.entity = player;
+				ent.entity = player.GetID();
 				push(stateLua, ent);
 
 				lua_pushstring(stateLua, data.c_str());
@@ -1625,7 +1618,7 @@ extern "C" DLL_PUBLIC void API_OnCefSendData(const int player, const std::string
 	if (lua_isfunction(stateLua, -1))
 	{
 		Player ent;
-		ent.entity = player;
+		ent.entity = player.GetID();
 		push(stateLua, ent);
 
 		lua_pushstring(stateLua, data.c_str());
@@ -1644,7 +1637,7 @@ extern "C" DLL_PUBLIC void API_OnCefSendData(const int player, const std::string
 }
 
 // Called when an entity dies
-extern "C" DLL_PUBLIC void API_OnEntityDeath(const int entity, const int killer)
+extern "C" DLL_PUBLIC void API_OnEntityDeath(Objects::Entity entity, Objects::Entity killer)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1654,30 +1647,29 @@ extern "C" DLL_PUBLIC void API_OnEntityDeath(const int entity, const int killer)
 			lua_rawgeti(stateLua, LUA_REGISTRYINDEX, events[i].functionKey);
 			if (lua_isfunction(stateLua, -1))
 			{
-				int type = API::Entity::GetType(entity);
-				switch (type)
+				switch (entity.GetType())
 				{
-				case 0: {
+				case GrandM::Player: {
 					Player ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 1: {
+				case GrandM::Vehicle: {
 					Vehicle ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 2: {
+				case GrandM::Object: {
 					Object ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 3: {
+				case GrandM::NPC: {
 					NPC ent;
-					ent.entity = entity;
+					ent.entity = entity.GetID();
 					push(stateLua, ent);
 					break;
 				}
@@ -1686,30 +1678,30 @@ extern "C" DLL_PUBLIC void API_OnEntityDeath(const int entity, const int killer)
 					break;
 				}
 
-				type = API::Entity::GetType(killer);
-				switch (type)
+
+				switch (killer.GetType())
 				{
-				case 0: {
+				case GrandM::Player: {
 					Player ent;
-					ent.entity = killer;
+					ent.entity = killer.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 1: {
+				case GrandM::Vehicle: {
 					Vehicle ent;
-					ent.entity = killer;
+					ent.entity = killer.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 2: {
+				case GrandM::Object: {
 					Object ent;
-					ent.entity = killer;
+					ent.entity = killer.GetID();
 					push(stateLua, ent);
 					break;
 				}
-				case 3: {
+				case GrandM::NPC: {
 					NPC ent;
-					ent.entity = killer;
+					ent.entity = killer.GetID();
 					push(stateLua, ent);
 					break;
 				}
@@ -1734,30 +1726,29 @@ extern "C" DLL_PUBLIC void API_OnEntityDeath(const int entity, const int killer)
 	lua_getglobal(stateLua, "OnEntityDeath");
 	if (lua_isfunction(stateLua, -1))
 	{
-		int type = API::Entity::GetType(entity);
-		switch (type)
+		switch (entity.GetType())
 		{
-		case 0: {
+		case GrandM::Player: {
 			Player ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 1: {
+		case GrandM::Vehicle: {
 			Vehicle ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 2: {
+		case GrandM::Object: {
 			Object ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 3: {
+		case GrandM::NPC: {
 			NPC ent;
-			ent.entity = entity;
+			ent.entity = entity.GetID();
 			push(stateLua, ent);
 			break;
 		}
@@ -1766,30 +1757,30 @@ extern "C" DLL_PUBLIC void API_OnEntityDeath(const int entity, const int killer)
 			break;
 		}
 
-		type = API::Entity::GetType(killer);
-		switch (type)
+
+		switch (killer.GetType())
 		{
-		case 0: {
+		case GrandM::Player: {
 			Player ent;
-			ent.entity = killer;
+			ent.entity = killer.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 1: {
+		case GrandM::Vehicle: {
 			Vehicle ent;
-			ent.entity = killer;
+			ent.entity = killer.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 2: {
+		case GrandM::Object: {
 			Object ent;
-			ent.entity = killer;
+			ent.entity = killer.GetID();
 			push(stateLua, ent);
 			break;
 		}
-		case 3: {
+		case GrandM::NPC: {
 			NPC ent;
-			ent.entity = killer;
+			ent.entity = killer.GetID();
 			push(stateLua, ent);
 			break;
 		}

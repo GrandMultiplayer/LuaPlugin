@@ -1,16 +1,25 @@
 #ifndef __APIBLIP_H__
 #define __APIBLIP_H__
+#pragma once
 
-DLL_PUBLIC_I_C void CreateBlip(Objects::Entity entity);
-DLL_PUBLIC_I_C Objects::Entity CreateBlip_(const CVector3 position);
-DLL_PUBLIC_I_C void ShowBlip(Objects::Entity entity, Objects::Entity playerEntity);
-DLL_PUBLIC_I_C void HideBlip(Objects::Entity entity, Objects::Entity playerEntity);
-DLL_PUBLIC_I_C void ShowBlipToAll(Objects::Entity entity);
-DLL_PUBLIC_I_C void HideBlipFromAll(Objects::Entity entity);
-DLL_PUBLIC_I_C const int GetBlipColor(Objects::Entity entity);
-DLL_PUBLIC_I_C void SetBlipColor(Objects::Entity entity, const int color);
-DLL_PUBLIC_I_C const std::string GetBlipText(Objects::Entity entity);
-DLL_PUBLIC_I_C void SetBlipText(Objects::Entity entity, const std::string text);
+#include <string>
+
+#include "../api.h"
+#include "../CVector3.h"
+#include "../Entity.h"
+
+#ifdef __cplusplus
+	DLL_PUBLIC_I_C void CreateBlip(Objects::Entity entity);
+	DLL_PUBLIC_I_C Objects::Entity CreateBlip_(const CVector3 position);
+	DLL_PUBLIC_I_C void ShowBlip(Objects::Entity entity, Objects::Entity playerEntity);
+	DLL_PUBLIC_I_C void HideBlip(Objects::Entity entity, Objects::Entity playerEntity);
+	DLL_PUBLIC_I_C void ShowBlipToAll(Objects::Entity entity);
+	DLL_PUBLIC_I_C void HideBlipFromAll(Objects::Entity entity);
+	DLL_PUBLIC_I_C const int GetBlipColor(Objects::Entity entity);
+	DLL_PUBLIC_I_C void SetBlipColor(Objects::Entity entity, const int color);
+	DLL_PUBLIC_I_C const std::string GetBlipText(Objects::Entity entity);
+	DLL_PUBLIC_I_C void SetBlipText(Objects::Entity entity, const std::string text);
+#endif
 
 namespace API
 {
@@ -20,78 +29,86 @@ namespace API
 		/// Creates a Blip for the entity
 		/// </summary>
 		/// <param name="entity">The entity you wish to create a blip for.</param>
-		void Create(Objects::Entity entity)
-		{
-			CreateBlip(entity);
-		}
+#ifdef __cplusplus
+		void Create(Objects::Entity entity);
+#else
+		DLL_PUBLIC_I_C void CreateBlip(Objects::Entity entity);
+#endif
 
 		/// <summary>
 		/// Creates a Blip at a give position
 		/// </summary>
 		/// <param name="position">The position you wish to create a blip at.</param>
 		/// <returns name="entity">The blips server entity id</returns>
-		Objects::Entity Create(const CVector3 position)
-		{
-			return CreateBlip_(position);
-		}
+#ifdef __cplusplus
+		Objects::Entity Create(const CVector3 position);
+#else
+		DLL_PUBLIC_I_C Objects::Entity CreateBlip_(const CVector3 position); 
+#endif
 
 		/// <summary>
 		/// Shows the Blip for the Player
 		/// </summary>
 		/// <param name="entity">The Entity of the blip to show.</param>
 		/// <param name="playerEntity">The Entity of the player to show the blip too.</param>
-		void Show(Objects::Entity entity, Objects::Entity playerEntity)
-		{
-			ShowBlip(entity, playerEntity);
-		}
+#ifdef __cplusplus
+		void Show(Objects::Entity entity, Objects::Entity playerEntity);
+#else
+		DLL_PUBLIC_I_C void ShowBlip(Objects::Entity entity, Objects::Entity playerEntity);
+#endif
 
 		/// <summary>
 		/// Hides the Blip for the Player
 		/// </summary>
 		/// <param name="entity">The Entity of the blip to hide.</param>
 		/// <param name="playerEntity">The Entity of the player to hide the blip from.</param>
-		void Hide(Objects::Entity entity, Objects::Entity playerEntity)
-		{
-			HideBlip(entity, playerEntity);
-		}
+#ifdef __cplusplus
+		void Hide(Objects::Entity entity, Objects::Entity playerEntity);
+#else
+		DLL_PUBLIC_I_C void HideBlip(Objects::Entity entity, Objects::Entity playerEntity);
+#endif
 
 		/// <summary>
 		/// Shows the Blip for all Players
 		/// </summary>
 		/// <param name="entity">The Entity of the blip to show.</param>
-		void ShowToAll(Objects::Entity entity)
-		{
-			ShowBlipToAll(entity);
-		}
+#ifdef __cplusplus
+		void ShowToAll(Objects::Entity entity);
+#else
+		DLL_PUBLIC_I_C void ShowBlipToAll(Objects::Entity entity);
+#endif
 
 		/// <summary>
 		/// Hides the Blip for all Players
 		/// </summary>
 		/// <param name="entity">The Entity of the blip to hide.</param>
-		void HideFromAll(Objects::Entity entity)
-		{
-			HideBlipFromAll(entity);
-		}
+#ifdef __cplusplus
+		void HideFromAll(Objects::Entity entity);
+#else
+		DLL_PUBLIC_I_C void HideBlipFromAll(Objects::Entity entity);
+#endif
 
 		/// <summary>
 		/// Gets the Blips color
 		/// </summary>
 		/// <param name="entity">The Entity of the blip to get the color for.</param>
 		/// <returns name="color">The blips color</returns>
-		const int GetColor(Objects::Entity entity)
-		{
-			return GetBlipColor(entity);
-		}
+#ifdef __cplusplus
+		const int GetColor(Objects::Entity entity);
+#else
+		DLL_PUBLIC_I_C const int GetBlipColor(Objects::Entity entity);
+#endif
 
 		/// <summary>
 		/// Sets the blips color
 		/// </summary>
 		/// <param name="entity">The Entity of the blip to set the color of.</param>
 		/// <param name="color">The color to set.</param>
-		void SetColor(Objects::Entity entity, const int color)
-		{
-			SetBlipColor(entity, color);
-		}
+#ifdef __cplusplus
+		void SetColor(Objects::Entity entity, const int color);
+#else
+		DLL_PUBLIC_I_C void SetBlipColor(Objects::Entity entity, const int color);
+#endif
 
 		/// <summary>
 		/// Gets the Blips sprite
@@ -112,20 +129,22 @@ namespace API
 		/// </summary>
 		/// <param name="entity">The Entity of the blip to get the text for.</param>
 		/// <returns name="text">The blips text</returns>
-		const std::string GetText(Objects::Entity entity)
-		{
-			return GetBlipText(entity);
-		}
+#ifdef __cplusplus
+		const std::string GetText(Objects::Entity entity);
+#else
+		DLL_PUBLIC_I_C const std::string GetBlipText(Objects::Entity entity);
+#endif
 
 		/// <summary>
 		/// Sets the blips text
 		/// </summary>
 		/// <param name="entity">The Entity of the blip to set the text of.</param>
 		/// <param name="text">The text to set the blip as.</param>
-		void SetText(Objects::Entity entity, const std::string text)
-		{
-			SetBlipText(entity, text);
-		}
+#ifdef __cplusplus
+		void SetText(Objects::Entity entity, const std::string text);
+#else
+		DLL_PUBLIC_I_C void SetBlipText(Objects::Entity entity, const std::string text);
+#endif
 
 		/// <summary>
 		/// Gets the Blips short range state

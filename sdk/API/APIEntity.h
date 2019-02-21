@@ -1,17 +1,6 @@
 #ifndef __APIENTITY_H__
 #define __APIENTITY_H__
-
-//enum EntityType
-//{
-//	Nill = -1,
-//	Player,
-//	NPC,
-//	Vehicle,
-//	Object,
-//	Checkpoint,
-//	Pickup,
-//	Blip,
-//};
+#pragma once
 
 namespace API
 {
@@ -146,7 +135,7 @@ namespace API
 		DLL_PUBLIC_I_C void SetViewDistance(Objects::Entity entity, const float distance);
 
 		/// <summary>
-		/// Gets an Array containing the Entities of the desired type
+		/// Gets a Vector containing the Entity ids of the desired type
 		/// </summary>
 		/// <param name="type">The type of entity you want the list of.</param>
 		/// <returns name="entities">A vector holding the id's of the tpye of entities fetched (Types are, Player = 0, Vehicle = 1, Object = 2, NPC = 3, Checkpoint = 4).</returns>

@@ -1,5 +1,6 @@
 #ifndef __APICEF_H__
 #define __APICEF_H__
+#pragma once
 
 namespace API
 {

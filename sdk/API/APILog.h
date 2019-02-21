@@ -1,5 +1,6 @@
 #ifndef __APILOG_H__
 #define __APILOG_H__
+#pragma once
 
 namespace API
 {

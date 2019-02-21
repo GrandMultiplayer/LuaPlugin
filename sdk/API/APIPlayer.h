@@ -1,5 +1,6 @@
 #ifndef __APIPLAYER_H__
 #define __APIPLAYER_H__
+#pragma once
 
 namespace API
 {

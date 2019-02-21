@@ -58,6 +58,13 @@
     <ClCompile Include="LuaPlayer.cpp" />
     <ClCompile Include="LuaVehicle.cpp" />
     <ClCompile Include="Mysql.cpp" />
+    <ClCompile Include="sdk\API\APIBlip.cpp" />
+    <ClCompile Include="sdk\API\APICamera.cpp" />
+    <ClCompile Include="sdk\API\APICheckpoint.cpp" />
+    <ClCompile Include="sdk\API\APINpc.cpp" />
+    <ClCompile Include="sdk\API\APIObject.cpp" />
+    <ClCompile Include="sdk\API\APIPickup.cpp" />
+    <ClCompile Include="sdk\API\APIVehicle.cpp" />
     <ClCompile Include="sdk\CVector2.cpp" />
     <ClCompile Include="sdk\CVector3.cpp" />
     <ClCompile Include="sdk\Plane.cpp" />
@@ -193,8 +200,6 @@
     <ClInclude Include="sdk\API\APIVehicle.h" />
     <ClInclude Include="sdk\API\APIVisual.h" />
     <ClInclude Include="sdk\API\APIWorld.h" />
-    <ClInclude Include="sdk\Blip.h" />
-    <ClInclude Include="sdk\Checkpoint.h" />
     <ClInclude Include="sdk\CMaths.h" />
     <ClInclude Include="sdk\CVector2.h" />
     <ClInclude Include="sdk\CVector3.h" />
@@ -202,17 +207,12 @@
     <ClInclude Include="sdk\Entity.h" />
     <ClInclude Include="sdk\GrandM.h" />
     <ClInclude Include="sdk\GUI.h" />
-    <ClInclude Include="sdk\NPC.h" />
-    <ClInclude Include="sdk\Object.h" />
     <ClInclude Include="sdk\Ped.h" />
-    <ClInclude Include="sdk\Pickup.h" />
     <ClInclude Include="sdk\Plane.h" />
-    <ClInclude Include="sdk\Player.h" />
     <ClInclude Include="sdk\Quaternion.h" />
     <ClInclude Include="sdk\Structs.h" />
     <ClInclude Include="sdk\Transform.h" />
     <ClInclude Include="sdk\util.h" />
-    <ClInclude Include="sdk\Vehicle.h" />
     <ClInclude Include="sdk\Weapon.h" />
     <ClInclude Include="Timers.h" />
   </ItemGroup>
@@ -282,6 +282,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -306,6 +307,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -350,7 +352,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalOptions>Server.lib </AdditionalOptions>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\$(Configuration)\;$(ProjectDir)lib\;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Lib\;</AdditionalLibraryDirectories>
       <AdditionalDependencies>Server.lib;libmysql64.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

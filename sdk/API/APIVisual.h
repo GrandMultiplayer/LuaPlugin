@@ -1,5 +1,6 @@
 #ifndef __APIVISUAL_H__
 #define __APIVISUAL_H__
+#pragma once
 
 namespace API
 {

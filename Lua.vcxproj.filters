@@ -138,6 +138,27 @@
     <ClCompile Include="LuaBlip.cpp" />
     <ClCompile Include="LuaPickup.cpp" />
     <ClCompile Include="LuaMain.cpp" />
+    <ClCompile Include="sdk\API\APIBlip.cpp">
+      <Filter>SDK\API</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\API\APICamera.cpp">
+      <Filter>SDK\API</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\API\APICheckpoint.cpp">
+      <Filter>SDK\API</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\API\APINpc.cpp">
+      <Filter>SDK\API</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\API\APIObject.cpp">
+      <Filter>SDK\API</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\API\APIPickup.cpp">
+      <Filter>SDK\API</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\API\APIVehicle.cpp">
+      <Filter>SDK\API</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sdk\CMaths.h">
@@ -518,12 +539,6 @@
     <ClInclude Include="sdk\api.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\Blip.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\Checkpoint.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\Entity.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -533,25 +548,10 @@
     <ClInclude Include="sdk\GUI.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\NPC.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\Object.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\Ped.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\Pickup.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\Player.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\Transform.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\Vehicle.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="sdk\Weapon.h">

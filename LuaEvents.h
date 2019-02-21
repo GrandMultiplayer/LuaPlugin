@@ -1,13 +1,6 @@
 #ifndef __LUAEVENTS_H__
 #define __LUAEVENTS_H__
 
-template <typename T, std::size_t N>
-inline
-std::size_t SizeOfArray(const T(&)[N])
-{
-	return N;
-}
-
 class Events {
 public:
 	static int AddHandler(lua_State* L)
