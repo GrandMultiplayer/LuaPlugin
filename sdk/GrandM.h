@@ -1,9 +1,3 @@
-#ifndef __GrandMAPI_H__
-#define __GrandMAPI_H__
-#pragma once
-
-#define _USE_MATH_DEFINES
-#include <math.h>
 #include <string>
 #include <vector>
 
@@ -25,10 +19,10 @@
 #include "GUI.h"
 #include "Weapon.h"
 
-// API Object Entity
 #include "Entity.h"
 
 // API Function Imports
+#include "API/APIJoaat.h"
 #include "API/APIEntity.h"
 #include "API/APIBlip.h"
 #include "API/APICef.h"
@@ -43,5 +37,3 @@
 #include "API/APIPickup.h"
 #include "API/APICamera.h"
 #include "API/APILog.h"
-
-#endif // !__GrandMAPI_H__

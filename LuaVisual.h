@@ -26,7 +26,7 @@ public:
 		{
 			std::string message = lua_tostring(L, 1);
 
-			API::Visual::SendChatMessage(message);
+			API::Visual::SendChatMessage((wchar_t*)message.c_str());
 		}
 		else
 		{

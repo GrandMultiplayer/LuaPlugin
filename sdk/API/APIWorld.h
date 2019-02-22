@@ -25,34 +25,34 @@ namespace API
 		/// Gets the Weather
 		/// </summary>
 		/// <returns>The current weather on the server</returns>
-		DLL_PUBLIC_I_C const std::string GetWeather();
+		DLL_PUBLIC_I_C const char * GetWeather();
 		/// <summary>
 		/// Sets the Weather
 		/// </summary>
 		/// <param name="weather">The weather you wish to set</param>
-		DLL_PUBLIC_I_C void SetWeather(const std::string weather);
+		DLL_PUBLIC_I_C void SetWeather(const char * weather);
 		/// <summary>
 		/// Loads an IPL for all players and future newly connected players
 		/// </summary>
 		/// <param name="ipl">The name of the IPL</param>
-		DLL_PUBLIC_I_C void LoadIPL(const std::string ipl);
+		DLL_PUBLIC_I_C void LoadIPL(const char * ipl);
 		/// <summary>
 		/// Loads an IPL for a specific player
 		/// </summary>
 		/// <param name="ipl">The name of the IPL</param>
 		/// <param name="ipl">The entity of the player you wish to load the ipl for</param>
-		DLL_PUBLIC_I_C void LoadIPLForPlayer(Objects::Entity entity, const std::string v);
+		DLL_PUBLIC_I_C void LoadIPLForPlayer(Objects::Entity entity, const char * v);
 		/// <summary>
 		/// Unloads an IPL for all players and future newly connected players
 		/// </summary>
 		/// <param name="ipl">The name of the IPL</param>
-		DLL_PUBLIC_I_C void UnloadIPL(const std::string ipl);
+		DLL_PUBLIC_I_C void UnloadIPL(const char * ipl);
 		/// <summary>
 		/// Unloads an IPL for a specific player
 		/// </summary>
 		/// <param name="ipl">The name of the IPL</param>
 		/// <param name="ipl">The entity of the player you wish to unload the ipl for</param>
-		DLL_PUBLIC_I_C void UnloadIPLForPlayer(Objects::Entity entity, const std::string ipl);
+		DLL_PUBLIC_I_C void UnloadIPLForPlayer(Objects::Entity entity, const char * ipl);
 		/// <summary>
 		/// Sets the blackout state for everyone
 		/// </summary>

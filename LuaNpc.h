@@ -788,7 +788,7 @@ struct NPC
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::NPC);
 
-			lua_pushstring(L, API::Entity::GetNametag(entity).c_str());
+			lua_pushstring(L, API::Entity::GetNametag(entity));
 
 			ent = nullptr;
 		}

@@ -9,7 +9,7 @@
 #include "../Entity.h"
 
 #ifdef __cplusplus
-	DLL_PUBLIC_I_C Objects::Entity CreateObject(const std::string model, const CVector3 position, const CVector3 rotation, const bool dynamic);
+	DLL_PUBLIC_I_C Objects::Entity CreateObject(const char * model, const CVector3 position, const CVector3 rotation, const bool dynamic);
 	DLL_PUBLIC_I_C Objects::Entity CreateObject_(const int hash, const CVector3 position, const CVector3 rotation, const bool dynamic);
 #endif
 
@@ -28,7 +28,7 @@ namespace API
 #ifdef __cplusplus
 		Objects::Entity Create(const std::string model, const CVector3 position, const CVector3 rotation, const bool dynamic);
 #else
-		DLL_PUBLIC_I_C Objects::Entity CreateObject(const std::string model, const CVector3 position, const CVector3 rotation, const bool dynamic);
+		DLL_PUBLIC_I_C Objects::Entity CreateObject(const char * model, const CVector3 position, const CVector3 rotation, const bool dynamic);
 #endif
 
 		/// <summary>

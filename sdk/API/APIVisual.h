@@ -16,7 +16,7 @@ namespace API
 		/// <param name="sender">The sender is the very top header. This can be any string.</param>
 		/// <param name="subject">The subject is the header under the sender.</param>
 		/// <returns></returns>
-		DLL_PUBLIC_I_C void ShowNotification(const std::string message, const std::string pic, const int icontype, const int color, const std::string sender, const std::string subject);
+		DLL_PUBLIC_I_C void ShowNotification(const char * message, const char * pic, const int icontype, const int color, const char * sender, const char * subject);
 
 		/// <summary>
 		/// Sends a notification message that displays above the game minimap to a specific client.
@@ -29,7 +29,7 @@ namespace API
 		/// <param name="sender">The sender is the very top header. This can be any string.</param>
 		/// <param name="subject">The subject is the header under the sender.</param>
 		/// <returns></returns>
-		DLL_PUBLIC_I_C void ShowNotificationToPlayer(Objects::Entity entity, const std::string message, const std::string pic, const int icontype, const int color, const std::string sender, const std::string subject);
+		DLL_PUBLIC_I_C void ShowNotificationToPlayer(Objects::Entity entity, const char * message, const char * pic, const int icontype, const int color, const char * sender, const char * subject);
 
 		/// <summary>
 		/// Sends a subtitle message that displays on the bottom of the game to all clients
@@ -38,7 +38,7 @@ namespace API
 		/// <param name="duration">The amount of time the subtitle should be shown (in milliseconds)</param>
 		/// <param name="shownow">Whether the subtitle must be showed immediately or not.</param>
 		/// <returns></returns>
-		DLL_PUBLIC_I_C void ShowSubtitle(const std::string message, const int duration, const bool shownow);
+		DLL_PUBLIC_I_C void ShowSubtitle(const char * message, const int duration, const bool shownow);
 
 		/// <summary>
 		/// Sends a subtitle message that displays on the bottom of the game to a specific client.
@@ -48,20 +48,20 @@ namespace API
 		/// <param name="duration">The amount of time the subtitle should be shown (in milliseconds)</param>
 		/// <param name="shownow">Whether the subtitle must be showed immediately or not.</param>
 		/// <returns></returns>
-		DLL_PUBLIC_I_C void ShowSubtitleToPlayer(Objects::Entity entity, const std::string message, const int duration, const bool shownow);
+		DLL_PUBLIC_I_C void ShowSubtitleToPlayer(Objects::Entity entity, const char * message, const int duration, const bool shownow);
 
 		/// <summary>
 		/// Sends a chat message to all clients.
 		/// </summary>
 		/// <param name="message">The string of the message</param>
-		DLL_PUBLIC_I_C void SendChatMessage(const std::string message);
+		DLL_PUBLIC_I_C void SendChatMessage(const wchar_t * message);
 
 		/// <summary>
 		/// Sends a chat message to a client.
 		/// </summary>
 		/// <param name="entity">The entityid of the player you wish to send the message to.</param>
 		/// <param name="message">The string of the message</param>
-		DLL_PUBLIC_I_C void SendChatMessageToPlayer(Objects::Entity entity, const std::string message);
+		DLL_PUBLIC_I_C void SendChatMessageToPlayer(Objects::Entity entity, const wchar_t * message);
 
 		/// <summary>
 		/// Enables/disables the cursor on-screen. Works with CEF and ImGui

@@ -2,8 +2,6 @@
 #define __APICAMERA_H__
 #pragma once
 
-#include <string>
-
 #include "../api.h"
 #include "../CVector3.h"
 #include "../Entity.h"

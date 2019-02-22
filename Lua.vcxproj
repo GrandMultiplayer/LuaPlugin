@@ -191,6 +191,7 @@
     <ClInclude Include="sdk\API\APICef.h" />
     <ClInclude Include="sdk\API\APICheckpoint.h" />
     <ClInclude Include="sdk\API\APIEntity.h" />
+    <ClInclude Include="sdk\API\APIJoaat.h" />
     <ClInclude Include="sdk\API\APILog.h" />
     <ClInclude Include="sdk\API\APINpc.h" />
     <ClInclude Include="sdk\API\APIObject.h" />

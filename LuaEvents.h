@@ -32,7 +32,7 @@ public:
 			{
 				std::stringstream str;
 				str << "Event.AddHandler invalid event " << eventString;
-				API::Log::Error(str.str());
+				API::Log::Error(str.str().c_str());
 				lua_pop(L, args);
 				return 0;
 			}

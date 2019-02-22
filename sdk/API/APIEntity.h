@@ -146,14 +146,14 @@ namespace API
 		/// </summary>
 		/// <param name="entity">The entity you want to get the nametag of.</param>
 		/// <returns name="nametag">The nametag string.</returns>
-		DLL_PUBLIC_I_C const std::string GetNametag(Objects::Entity entity);
+		DLL_PUBLIC_I_C const char * GetNametag(Objects::Entity entity);
 
 		/// <summary>
 		/// Sets the nametag of the entity
 		/// </summary>
 		/// <param name="entity">The entity you want to set the nametag of.</param>
 		/// <param name="nametag">The text of the nametag.</param>
-		DLL_PUBLIC_I_C void SetNametag(Objects::Entity entity, const std::string nametag);
+		DLL_PUBLIC_I_C void SetNametag(Objects::Entity entity, const char * nametag);
 
 		/// <summary>
 		/// Gets the nametag of the entity

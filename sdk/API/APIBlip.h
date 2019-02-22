@@ -17,8 +17,8 @@
 	DLL_PUBLIC_I_C void HideBlipFromAll(Objects::Entity entity);
 	DLL_PUBLIC_I_C const int GetBlipColor(Objects::Entity entity);
 	DLL_PUBLIC_I_C void SetBlipColor(Objects::Entity entity, const int color);
-	DLL_PUBLIC_I_C const std::string GetBlipText(Objects::Entity entity);
-	DLL_PUBLIC_I_C void SetBlipText(Objects::Entity entity, const std::string text);
+	DLL_PUBLIC_I_C const char * GetBlipText(Objects::Entity entity);
+	DLL_PUBLIC_I_C void SetBlipText(Objects::Entity entity, const char * text);
 #endif
 
 namespace API
@@ -132,7 +132,7 @@ namespace API
 #ifdef __cplusplus
 		const std::string GetText(Objects::Entity entity);
 #else
-		DLL_PUBLIC_I_C const std::string GetBlipText(Objects::Entity entity);
+		DLL_PUBLIC_I_C const char * GetBlipText(Objects::Entity entity);
 #endif
 
 		/// <summary>
@@ -143,7 +143,7 @@ namespace API
 #ifdef __cplusplus
 		void SetText(Objects::Entity entity, const std::string text);
 #else
-		DLL_PUBLIC_I_C void SetBlipText(Objects::Entity entity, const std::string text);
+		DLL_PUBLIC_I_C void SetBlipText(Objects::Entity entity, const char * text);
 #endif
 
 		/// <summary>

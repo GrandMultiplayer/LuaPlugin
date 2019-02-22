@@ -439,7 +439,7 @@ struct Vehicle
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::Vehicle);
 
-			lua_pushstring(L, API::Vehicle::GetNumberPlate(entity).c_str());
+			lua_pushstring(L, API::Vehicle::GetNumberPlate(entity));
 
 			ent = nullptr;
 		}
@@ -633,7 +633,7 @@ struct Vehicle
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::Vehicle);
 
-			lua_pushstring(L, API::Vehicle::GetVehicleModel(entity).c_str());
+			lua_pushstring(L, API::Vehicle::GetVehicleModel(entity));
 
 			ent = nullptr;
 		}

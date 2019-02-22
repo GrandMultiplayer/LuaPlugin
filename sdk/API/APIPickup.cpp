@@ -6,7 +6,7 @@ namespace API
 	{
 		Objects::Entity Create(const CVector3 position, std::string model)
 		{
-			return CreatePickup(position, model);
+			return CreatePickup(position, model.c_str());
 		}
 
 		void Show(Objects::Entity entity, Objects::Entity playerEntity)
@@ -26,7 +26,7 @@ namespace API
 
 		void SetModel(Objects::Entity entity, const std::string model)
 		{
-			SetPickupModel(entity, model);
+			SetPickupModel(entity, model.c_str());
 		}
 
 		const int GetRespawnDelay(Objects::Entity entity)

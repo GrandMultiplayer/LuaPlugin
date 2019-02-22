@@ -810,7 +810,7 @@ struct Player
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::Player);
 
-			API::Visual::SendChatMessageToPlayer(entity, lua_tostring(L, 2));
+			API::Visual::SendChatMessageToPlayer(entity, (wchar_t*)lua_tostring(L, 2)); // Not Ideal but seems Lua doesn't support utf-16?
 			ent = nullptr;
 		}
 		else
@@ -833,7 +833,7 @@ struct Player
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::Player);
 
-			lua_pushstring(L, API::Player::GetUsername(entity).c_str());
+			lua_pushstring(L, API::Player::GetUsername(entity));
 
 			ent = nullptr;
 		}
@@ -889,7 +889,7 @@ struct Player
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::Player);
 
-			API::CEF::LoadURL(entity, lua_tostring(L, 2), lua_tostring(L, 3), appcode, remote);
+			API::CEF::LoadURL(entity, lua_tostring(L, 2), lua_tostring(L, 3), appcode.c_str(), remote);
 
 			ent = nullptr;
 		}
@@ -988,7 +988,7 @@ struct Player
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::Player);
 
-			lua_pushstring(L, API::Player::GetIP(entity).c_str());
+			lua_pushstring(L, API::Player::GetIP(entity));
 
 			ent = nullptr;
 		}
@@ -1013,7 +1013,7 @@ struct Player
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::Player);
 
-			lua_pushstring(L, API::Player::GetSecretKey(entity).c_str());
+			lua_pushstring(L, API::Player::GetSecretKey(entity));
 
 			ent = nullptr;
 		}
@@ -1181,7 +1181,7 @@ struct Player
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::Player);
 
-			lua_pushstring(L, API::Entity::GetNametag(entity).c_str());
+			lua_pushstring(L, API::Entity::GetNametag(entity));
 
 			ent = nullptr;
 		}
@@ -1821,7 +1821,7 @@ struct Player
 			entity.SetID(ent->entity);
 			entity.SetType(GrandM::EntityType::Player);
 
-			std::string * weapons = API::Player::GetWeapons(entity);
+			char ** weapons = API::Player::GetWeapons(entity);
 
 			const int arraySize = (int)(sizeof(weapons) / sizeof(weapons[0]));
 
@@ -1830,7 +1830,7 @@ struct Player
 				lua_newtable(L);
 				for (unsigned int i = 0; i < arraySize; i++)
 				{
-					lua_pushstring(L, weapons[i].c_str());
+					lua_pushstring(L, weapons[i]);
 				}
 			}
 			else

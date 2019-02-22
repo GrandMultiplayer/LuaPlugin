@@ -51,7 +51,7 @@ namespace API
 
 		void SetText(Objects::Entity entity, const std::string text)
 		{
-			SetBlipText(entity, text);
+			SetBlipText(entity, text.c_str());
 		}
 	}
 }

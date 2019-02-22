@@ -557,6 +557,9 @@
     <ClInclude Include="sdk\Weapon.h">
       <Filter>SDK</Filter>
     </ClInclude>
+    <ClInclude Include="sdk\API\APIJoaat.h">
+      <Filter>SDK\API</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Mysql\mysql\client_plugin.h.pp">

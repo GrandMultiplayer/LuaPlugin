@@ -46,7 +46,7 @@ public:
 		const int args = lua_gettop(L);
 		if (args == 0)
 		{
-			lua_pushstring(L, API::World::GetWeather().c_str());	
+			lua_pushstring(L, API::World::GetWeather());	
 		}
 		else
 		{

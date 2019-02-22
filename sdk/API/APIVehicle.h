@@ -2,8 +2,6 @@
 #define __APIVEHICLE_H__
 #pragma once
 
-#include <string>
-
 #include "../api.h"
 #include "../CVector3.h"
 #include "../Structs.h"
@@ -90,14 +88,14 @@ namespace API
 		/// </summary>
 		/// <param name="entity">The entity of the vehicle</param>
 		/// <returns name="plate">The vehicles number plate</returns>
-		DLL_PUBLIC_I_C const std::string GetNumberPlate(Objects::Entity entity);
+		DLL_PUBLIC_I_C const char * GetNumberPlate(Objects::Entity entity);
 
 		/// <summary>
 		/// Sets the vehicles number plate
 		/// </summary>
 		/// <param name="entity">The entity of the vehicle</param>
 		/// <param name="plate">The number plate text. (Must be 8 or less chars)</param>
-		DLL_PUBLIC_I_C void SetNumberPlate(Objects::Entity entity, const std::string plate);
+		DLL_PUBLIC_I_C void SetNumberPlate(Objects::Entity entity, const char * plate);
 
 		/// <summary>
 		/// Gets the index of the modType on the vehicle being used
@@ -157,7 +155,7 @@ namespace API
 		/// </summary>
 		/// <param name="entity">The entity of the vehicle</param>
 		/// <returns name="model">The model</returns>
-		DLL_PUBLIC_I_C const std::string GetVehicleModel(Objects::Entity entity);
+		DLL_PUBLIC_I_C const char * GetVehicleModel(Objects::Entity entity);
 
 		/// <summary>
 		/// Get the vehicles number plate style

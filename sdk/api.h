@@ -1,3 +1,6 @@
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #ifndef __API_H__
 #	define __API_H__
 
@@ -29,11 +32,15 @@
 
 #define DLL_PUBLIC_I_C EXTERN_C DLL_PUBLIC_I
 
-template <typename T, std::size_t N>
-inline
-std::size_t SizeOfArray(const T(&)[N])
-{
-	return N;
-}
+#ifdef __cplusplus
+#include <cstddef>
+
+	template <typename T, std::size_t N>
+	inline
+	std::size_t SizeOfArray(const T(&)[N])
+	{
+		return N;
+	}
+#endif
 
 #endif

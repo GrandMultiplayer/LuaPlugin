@@ -9,11 +9,11 @@
 #include "../Entity.h"
 
 #ifdef __cplusplus
-	DLL_PUBLIC_I_C Objects::Entity CreatePickup(const CVector3 position, std::string model = "prop_beach_volball02");
+	DLL_PUBLIC_I_C Objects::Entity CreatePickup(const CVector3 position, const char * model = "prop_beach_volball02");
 	DLL_PUBLIC_I_C void ShowPickup(Objects::Entity entity, Objects::Entity playerEntity);
 	DLL_PUBLIC_I_C void HidePickup(Objects::Entity entity, Objects::Entity playerEntity);
-	DLL_PUBLIC_I_C std::string GetPickupModel(Objects::Entity entity);
-	DLL_PUBLIC_I_C void SetPickupModel(Objects::Entity entity, const std::string model);
+	DLL_PUBLIC_I_C const char * GetPickupModel(Objects::Entity entity);
+	DLL_PUBLIC_I_C void SetPickupModel(Objects::Entity entity, const char * model);
 	DLL_PUBLIC_I_C const int GetPickupRespawnDelay(Objects::Entity entity);
 	DLL_PUBLIC_I_C void SetPickupRespawnDelay(Objects::Entity entity, const int time);
 #endif
@@ -31,7 +31,7 @@ namespace API
 #ifdef __cplusplus
 		Objects::Entity Create(const CVector3 position, std::string model = "prop_beach_volball02");
 #else
-		DLL_PUBLIC_I_C Objects::Entity CreatePickup(const CVector3 position, std::string model = "prop_beach_volball02");
+		DLL_PUBLIC_I_C Objects::Entity CreatePickup(const CVector3 position, const char * model = "prop_beach_volball02");
 #endif
 
 		/// <summary>
@@ -64,7 +64,7 @@ namespace API
 #ifdef __cplusplus
 		std::string GetModel(Objects::Entity entity);
 #else
-		DLL_PUBLIC_I_C std::string GetPickupModel(Objects::Entity entity);
+		DLL_PUBLIC_I_C const char * GetPickupModel(Objects::Entity entity);
 #endif
 
 		/// <summary>
@@ -75,7 +75,7 @@ namespace API
 #ifdef __cplusplus
 		void SetModel(Objects::Entity entity, const std::string model);
 #else
-		DLL_PUBLIC_I_C void SetPickupModel(Objects::Entity entity, const std::string model);
+		DLL_PUBLIC_I_C void SetPickupModel(Objects::Entity entity, const char * model);
 #endif
 
 		/// <summary>

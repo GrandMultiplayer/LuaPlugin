@@ -98,7 +98,7 @@ void TimerTick()
 					{
 						std::stringstream str;
 						str << "Error: %s" << lua_tostring(stateLua, -1);
-						API::Log::Error(str.str());
+						API::Log::Error(str.str().c_str());
 					}
 				}
 
@@ -481,17 +481,17 @@ extern "C" DLL_PUBLIC bool API_Initialize(void)
 	if (luaL_dofile(stateLua, scriptName) != 0) {
 		std::stringstream str;
 		str << "Lua: Error occured when loading " << scriptName;
-		API::Log::Error(str.str());
+		API::Log::Error(str.str().c_str());
 
 		str.clear();
 		str << "Error: %s" << lua_tostring(stateLua, -1);
-		API::Log::Error(str.str());
+		API::Log::Error(str.str().c_str());
 	}
 	else {
 		std::stringstream str;
 		str << "Lua: Succesfully loaded " << scriptName;
 
-		API::Log::Print(str.str());
+		API::Log::Print(str.str().c_str());
 	}
 	
 	int result = 1;
@@ -510,7 +510,7 @@ extern "C" DLL_PUBLIC bool API_Initialize(void)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 
 				if (result == 1)
@@ -531,7 +531,7 @@ extern "C" DLL_PUBLIC bool API_Initialize(void)
 			API::Log::Error("Error occured when executing OnInit");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 
 		result = lua_tointeger(stateLua, -1);
@@ -557,7 +557,7 @@ extern "C" DLL_PUBLIC bool API_Close(void)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 				lua_pop(stateLua, 1);
 			}
@@ -575,7 +575,7 @@ extern "C" DLL_PUBLIC bool API_Close(void)
 			API::Log::Error("Error occured when executing OnClose");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 
 		result = lua_tointeger(stateLua, -1);
@@ -601,7 +601,7 @@ extern "C" DLL_PUBLIC bool API_OnTick(void)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -620,7 +620,7 @@ extern "C" DLL_PUBLIC bool API_OnTick(void)
 			API::Log::Error("Error occured when executing OnTick");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 		
 		//result = (int)luaL_optinteger(stateLua, -1, 1);
@@ -653,7 +653,7 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnecting(Objects::Entity player)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 
 				if(result == 1)
@@ -677,7 +677,7 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnecting(Objects::Entity player)
 			API::Log::Error("Error occured when executing OnPlayerConnecting");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 
 		if (result == 1)
@@ -709,7 +709,7 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnected(Objects::Entity player)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 
 				if (result == 1)
@@ -733,7 +733,7 @@ extern "C" DLL_PUBLIC bool API_OnPlayerConnected(Objects::Entity player)
 			API::Log::Error("Error occured when executing OnPlayerConnected");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 
 		if (result == 1)
@@ -766,7 +766,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerDisconnected(Objects::Entity player, int 
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -789,7 +789,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerDisconnected(Objects::Entity player, int 
 			API::Log::Error("Error occured when executing OnPlayerDisconnected");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 	lua_pop(stateLua, -1);
@@ -846,7 +846,7 @@ extern "C" DLL_PUBLIC void API_OnEntityEnterCheckpoint(Objects::Entity checkpoin
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -898,7 +898,7 @@ extern "C" DLL_PUBLIC void API_OnEntityEnterCheckpoint(Objects::Entity checkpoin
 			API::Log::Error("Error occured when executing OnEntityEnterCheckpoint");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 	lua_pop(stateLua, -1);
@@ -954,7 +954,7 @@ extern "C" DLL_PUBLIC void API_OnEntityExitCheckpoint(Objects::Entity checkpoint
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -1006,13 +1006,13 @@ extern "C" DLL_PUBLIC void API_OnEntityExitCheckpoint(Objects::Entity checkpoint
 			API::Log::Error("Error occured when executing OnEntityExitCheckpoint");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 	lua_pop(stateLua, -1);
 }
 
-extern "C" DLL_PUBLIC void API_OnPlayerCommand(Objects::Entity player, const std::string message)
+extern "C" DLL_PUBLIC void API_OnPlayerCommand(Objects::Entity player, const wchar_t * message)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1026,14 +1026,14 @@ extern "C" DLL_PUBLIC void API_OnPlayerCommand(Objects::Entity player, const std
 				ent.entity = player.GetID();
 				push(stateLua, ent);
 
-				lua_pushstring(stateLua, message.c_str());
+				lua_pushstring(stateLua, (char*)message);
 
 				int error = lua_pcall(stateLua, 2, 0, 0);
 				if (error != 0)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -1048,7 +1048,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerCommand(Objects::Entity player, const std
 		ent.entity = player.GetID();
 		push(stateLua, ent);
 
-		lua_pushstring(stateLua, message.c_str());
+		lua_pushstring(stateLua, (char*)message);
 
 		int error = lua_pcall(stateLua, 2, 0, 0);
 		if (error != 0)
@@ -1056,13 +1056,13 @@ extern "C" DLL_PUBLIC void API_OnPlayerCommand(Objects::Entity player, const std
 			API::Log::Error("Error occured when executing OnPlayerCommand");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 	lua_pop(stateLua, -1);
 }
 
-extern "C" DLL_PUBLIC void API_OnPlayerMessage(Objects::Entity player, const std::string message)
+extern "C" DLL_PUBLIC void API_OnPlayerMessage(Objects::Entity player, const wchar_t * message)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1076,14 +1076,14 @@ extern "C" DLL_PUBLIC void API_OnPlayerMessage(Objects::Entity player, const std
 				ent.entity = player.GetID();
 				push(stateLua, ent);
 
-				lua_pushstring(stateLua, message.c_str());
+				lua_pushstring(stateLua, (char*)message);
 
 				int error = lua_pcall(stateLua, 2, 0, 0);
 				if (error != 0)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -1098,7 +1098,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerMessage(Objects::Entity player, const std
 		ent.entity = player.GetID();
 		push(stateLua, ent);
 
-		lua_pushstring(stateLua, message.c_str());
+		lua_pushstring(stateLua, (char*)message);
 
 		int error = lua_pcall(stateLua, 2, 0, 0);
 		if (error != 0)
@@ -1106,7 +1106,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerMessage(Objects::Entity player, const std
 			API::Log::Error("Error occured when executing OnPlayerMessage");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 
@@ -1114,7 +1114,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerMessage(Objects::Entity player, const std
 }
 
 // Called whern a player has just shot
-extern "C" DLL_PUBLIC void API_OnPlayerShot(Objects::Entity player, const std::string weapon)
+extern "C" DLL_PUBLIC void API_OnPlayerShot(Objects::Entity player, const char * weapon)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1128,14 +1128,14 @@ extern "C" DLL_PUBLIC void API_OnPlayerShot(Objects::Entity player, const std::s
 				ent.entity = player.GetID();
 				push(stateLua, ent);
 
-				lua_pushstring(stateLua, weapon.c_str());
+				lua_pushstring(stateLua, weapon);
 
 				int error = lua_pcall(stateLua, 2, 0, 0);
 				if (error != 0)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -1150,7 +1150,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerShot(Objects::Entity player, const std::s
 		ent.entity = player.GetID();
 		push(stateLua, ent);
 
-		lua_pushstring(stateLua, weapon.c_str());
+		lua_pushstring(stateLua, weapon);
 
 		int error = lua_pcall(stateLua, 2, 0, 0);
 		if (error != 0)
@@ -1158,7 +1158,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerShot(Objects::Entity player, const std::s
 			API::Log::Error("Error occured when executing OnPlayerShot");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 
@@ -1166,7 +1166,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerShot(Objects::Entity player, const std::s
 }
 
 // Called whern a entity has taken damage
-extern "C" DLL_PUBLIC const bool API_OnEntityDamage(Objects::Entity entity, const int damage, Objects::Entity attacker, const std::string weapon)
+extern "C" DLL_PUBLIC const bool API_OnEntityDamage(Objects::Entity entity, const int damage, Objects::Entity attacker, const char * weapon)
 {
 	int result = 1;
 
@@ -1231,14 +1231,14 @@ extern "C" DLL_PUBLIC const bool API_OnEntityDamage(Objects::Entity entity, cons
 					break;
 				}
 
-				lua_pushstring(stateLua, weapon.c_str());
+				lua_pushstring(stateLua, weapon);
 
 				int error = lua_pcall(stateLua, 4, 1, 0);
 				if (error != 0)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 
 				if(result == 1)
@@ -1304,7 +1304,7 @@ extern "C" DLL_PUBLIC const bool API_OnEntityDamage(Objects::Entity entity, cons
 			break;
 		}
 
-		lua_pushstring(stateLua, weapon.c_str());
+		lua_pushstring(stateLua, weapon);
 
 		int error = lua_pcall(stateLua, 4, 1, 0);
 		if (error != 0)
@@ -1312,7 +1312,7 @@ extern "C" DLL_PUBLIC const bool API_OnEntityDamage(Objects::Entity entity, cons
 			API::Log::Error("Error occured when executing OnEntityDamage");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 
 		if (result == 1)
@@ -1324,7 +1324,7 @@ extern "C" DLL_PUBLIC const bool API_OnEntityDamage(Objects::Entity entity, cons
 }
 
 // Called after a player has shot and their projectile hits something
-extern "C" DLL_PUBLIC void API_OnProjectileImpact(Objects::Entity player, const std::string weapon, CVector3 position, Objects::Entity entity, const int bone)
+extern "C" DLL_PUBLIC void API_OnProjectileImpact(Objects::Entity player, const char * weapon, CVector3 position, Objects::Entity entity, const int bone)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1338,7 +1338,7 @@ extern "C" DLL_PUBLIC void API_OnProjectileImpact(Objects::Entity player, const 
 				p.entity = player.GetID();
 				push(stateLua, p);
 
-				lua_pushstring(stateLua, weapon.c_str());
+				lua_pushstring(stateLua, weapon);
 
 				lua_newtable(stateLua);
 				lua_pushinteger(stateLua, position.x);
@@ -1398,7 +1398,7 @@ extern "C" DLL_PUBLIC void API_OnProjectileImpact(Objects::Entity player, const 
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -1413,7 +1413,7 @@ extern "C" DLL_PUBLIC void API_OnProjectileImpact(Objects::Entity player, const 
 		p.entity = player.GetID();
 		push(stateLua, p);
 
-		lua_pushstring(stateLua, weapon.c_str());
+		lua_pushstring(stateLua, weapon);
 
 		lua_newtable(stateLua);
 		lua_pushinteger(stateLua, position.x);
@@ -1474,7 +1474,7 @@ extern "C" DLL_PUBLIC void API_OnProjectileImpact(Objects::Entity player, const 
 			API::Log::Error("Error occured when executing OnProjectileImpact");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 	lua_pop(stateLua, -1);
@@ -1504,7 +1504,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerPickup(Objects::Entity player, Objects::E
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -1529,7 +1529,7 @@ extern "C" DLL_PUBLIC void API_OnPlayerPickup(Objects::Entity player, Objects::E
 			API::Log::Error("Error occured when executing OnPlayerPickup");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 
@@ -1556,7 +1556,7 @@ extern "C" DLL_PUBLIC void API_OnCefFinishLoad(Objects::Entity player)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -1577,7 +1577,7 @@ extern "C" DLL_PUBLIC void API_OnCefFinishLoad(Objects::Entity player)
 			API::Log::Error("Error occured when executing OnCefFinishLoad");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 
@@ -1585,7 +1585,7 @@ extern "C" DLL_PUBLIC void API_OnCefFinishLoad(Objects::Entity player)
 }
 
 // When a CEF page sends data
-extern "C" DLL_PUBLIC void API_OnCefSendData(Objects::Entity player, const std::string data)
+extern "C" DLL_PUBLIC void API_OnCefSendData(Objects::Entity player, const char * data)
 {
 	// Events
 	for (unsigned int i = 0; i < events.size(); i++)
@@ -1599,14 +1599,14 @@ extern "C" DLL_PUBLIC void API_OnCefSendData(Objects::Entity player, const std::
 				ent.entity = player.GetID();
 				push(stateLua, ent);
 
-				lua_pushstring(stateLua, data.c_str());
+				lua_pushstring(stateLua, data);
 
 				int error = lua_pcall(stateLua, 2, 0, 0);
 				if (error != 0)
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -1621,7 +1621,7 @@ extern "C" DLL_PUBLIC void API_OnCefSendData(Objects::Entity player, const std::
 		ent.entity = player.GetID();
 		push(stateLua, ent);
 
-		lua_pushstring(stateLua, data.c_str());
+		lua_pushstring(stateLua, data);
 
 		int error = lua_pcall(stateLua, 2, 0, 0);
 		if (error != 0)
@@ -1629,7 +1629,7 @@ extern "C" DLL_PUBLIC void API_OnCefSendData(Objects::Entity player, const std::
 			API::Log::Error("Error occured when executing OnCefSendData");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 
@@ -1715,7 +1715,7 @@ extern "C" DLL_PUBLIC void API_OnEntityDeath(Objects::Entity entity, Objects::En
 				{
 					std::stringstream str;
 					str << "Error: %s" << lua_tostring(stateLua, -1);
-					API::Log::Error(str.str());
+					API::Log::Error(str.str().c_str());
 				}
 			}
 			lua_pop(stateLua, 1);
@@ -1795,7 +1795,7 @@ extern "C" DLL_PUBLIC void API_OnEntityDeath(Objects::Entity entity, Objects::En
 			API::Log::Error("Error occured when executing OnEntityDeath");
 			std::stringstream str;
 			str << "Error: %s" << lua_tostring(stateLua, -1);
-			API::Log::Error(str.str());
+			API::Log::Error(str.str().c_str());
 		}
 	}
 

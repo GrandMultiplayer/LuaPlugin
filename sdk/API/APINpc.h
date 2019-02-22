@@ -9,7 +9,7 @@
 #include "../Entity.h"
 
 #ifdef __cplusplus
-	DLL_PUBLIC_I_C Objects::Entity CreateNPC(const std::string model, const CVector3 position, const CVector3 rotation);
+	DLL_PUBLIC_I_C Objects::Entity CreateNPC(const char * model, const CVector3 position, const CVector3 rotation);
 #endif
 
 namespace API
@@ -26,7 +26,7 @@ namespace API
 #ifdef __cplusplus
 		Objects::Entity Create(const std::string model, const CVector3 position, const CVector3 rotation);
 #else
-		DLL_PUBLIC_I_C Objects::Entity CreateNPC(const std::string model, const CVector3 position, const CVector3 rotation);
+		DLL_PUBLIC_I_C Objects::Entity CreateNPC(const char * model, const CVector3 position, const CVector3 rotation);
 #endif
 	}
 }
